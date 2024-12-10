@@ -4,7 +4,6 @@ const {Pool} = require("pg");
 const path = require("node:path");
 require("dotenv").config();
 const PORT = process.env.PORT || 3001;
-const session = require("express-session")
 const passport  = require("passport")
 const LocalStrategy = require("passport-local").Strategy
 const main = require("./models/dbinitialize")
@@ -40,20 +39,20 @@ passport.use(
 )
 
 
-app.post("/api", async(req,res,next)=>{
-  try {
-    console.log("db created")
-    bcrypt.hash(req.body.password, 10, async (err, hashedPassword) => {
-  // if err, do something
-  // otherwise, store hashedPassword in DB
-    await pool.query("INSERT INTO users (username, password) VALUES($1,$2)", [req.body.username, hashedPassword]);
-    });
-    console.log("sign-up success")
-    res.redirect("/")
-  } catch(err){
-   return next(err)
-  }
-})
+// app.post("/api", async(req,res,next)=>{
+//   try {
+//     console.log("db created")
+//     bcrypt.hash(req.body.password, 10, async (err, hashedPassword) => {
+//   // if err, do something
+//   // otherwise, store hashedPassword in DB
+//     await pool.query("INSERT INTO users (username, password) VALUES($1,$2)", [req.body.username, hashedPassword]);
+//     });
+//     console.log("sign-up success")
+//     res.redirect("/")
+//   } catch(err){
+//    return next(err)
+//   }
+// })
 
 // app.post(
 //   "/log-in",
@@ -77,6 +76,12 @@ app.post("/api", async(req,res,next)=>{
 
 app.get("/api",(req,res)=>{
     res.json({message: "Server connected"})
+})
+
+app.post("/api", (req,res)=>{
+    // console.log("response received! Logging..")
+    console.log(req.body)
+    res.send()
 })
 
 
