@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import '../styles/home.css'
+import SignUp from './signup';
 
 function Home() {
   const [loggedIn, setLogin]=useState(false);
@@ -10,10 +11,6 @@ function Home() {
       .then((res) => res.json())
       .then((data) => setData(data.message));
   }, []);
-
-  const onLoginClick = ()=>{
-    console.log("button clicked!")
-  }
 
   return (
     <>
@@ -26,15 +23,7 @@ function Home() {
         <p>
           This is going to be to be the landing page
         </p>
-        <p>Log in instructions</p>
-        <div className='buttonContainer'>
-            <input 
-              type="button" 
-              value={loggedIn? "log out":"log in"}
-              onClick={onLoginClick}
-            />
-            {loggedIn? <p>You have logged in as user xx</p> : <p>You are not logged in</p> }
-        </div>
+            {loggedIn? <p>You have logged in as user xx</p> : <SignUp /> }
       </div>
     </>
   )
