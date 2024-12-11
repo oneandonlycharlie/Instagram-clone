@@ -16,6 +16,7 @@ const pool = new Pool({
 
 //middleware to ensure URLs are parsed.
 app.use(express.urlencoded({ extended: false }));
+app.use(express.json())
 
 //This calls the auth strategy when we use the passport.authenticate()
 passport.use(
