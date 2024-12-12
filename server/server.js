@@ -1,84 +1,50 @@
+// express app set up
 const express = require("express")
 const app = express();
-const path = require("node:path");
-require("dotenv").config();
-const PORT = process.env.PORT || 3001;
-const passport  = require("passport")
-const LocalStrategy = require("passport-local").Strategy
-const bcrypt = require("bcryptjs")
-const db = require("./models/queries")
+// const path = require("node:path");
+const authRouter = require("./controllers/authRouter")
+const passport = require("passport")
+// const db = require("./models/queries")
 
-//middleware to ensure URLs are parsed.
+//middleware to parse URLs
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json())
 
+// environment variables stored
+// require("dotenv").config();
+const PORT = process.env.PORT || 3001;
 
-//This calls the auth strategy when we use the passport.authenticate()
-passport.use(
-  new LocalStrategy(async (username, password, done)=>{
-      try {
-        const { rows } = await db.query("SELECT * FROM users WHERE username = $1", [username]);
-        console.log(rows)
-        const user = rows[0];
-        const match = await bcrypt.compare(password, user.password);
-        if (!user){
-          return done(null,false, {message:"Incorrect username"})
-        }
-        if (!match) {
-          return done(null, false, { message: "Incorrect password" });
-        }
-        return done(null, user);
-      } catch(err) {
-        return done(err);
-    }
-  })
-)
+// database connected 
+const bcrypt = require("bcryptjs")
+const pool = require("./models/pool")
 
+// set up and store session
+const session = require("express-session")
+const pgSession = require('connect-pg-simple')(session);
+const sessionStore = new pgSession({
+    pool: pool,
+    tableName: "session"
+})
 
-// app.post(
-//   "/log-in",
-//   passport.authenticate("local",{
-//     successRedirect:"/",
-//     failureRedirect:"/",
-//     failureMessage:true
-//   })
-// )
+// creates new session and fires session id to cookie
+app.use(session({
+    store: sessionStore,
+    secret: "cats",
+    resave: false,
+    saveUninitialized:true,
+    cookie: { secure: false, maxAge: 30 * 24 * 60 * 60 * 1000 }
+}))
+app.use(passport.session());
 
-// app.get("/log-out", (req, res, next) => {
-//   req.logout((err) => {
-//     if (err) {
-//       return next(err);
-//     }
-//     res.redirect("/");
-//   });
-// });
+// require the entire passport verification config
+require("./config/passport")
 
-
-// set up connection with React
+// direct requests to all routes
 app.get("/api",(req,res)=>{
+    console.log(req.body)
     res.json({message: "Server connected"})
 })
-app.get("/api/login", (req,res)=>{
-    console.log("receving get request at /login")
-})
-
-//enable sign up and create new user in db
-app.post("/api", (req,res)=>{
-    console.log("response received! Logging..")
-    try {
-        bcrypt.hash(req.body.password, 10, async (err, hashedPassword) => {
-            db.createUser(req.body.email, hashedPassword);
-        });
-        res.send();
-    } catch(err){
-        return next(err)
-    } 
-})
-app.post("/api/login", (req,res)=>{
-    console.log("logging in..")
-    console.log(req.body)
-    res.end()
-})
+app.use("/account", authRouter)
 
 app.listen(PORT, ()=>{
     console.log(`server listening at ${PORT}`)
