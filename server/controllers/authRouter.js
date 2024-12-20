@@ -1,6 +1,5 @@
 const { Router } = require("express")
 const router = new Router()
-const bcrypt = require("bcryptjs")
 const db = require("../models/queries")
 const passport = require("passport")
 
@@ -18,7 +17,7 @@ router.post("/signup", (req,res)=>{
     } 
 })
 
-// handle log in requestcd
+// handle log in request and verification
 router.get("/login", (req,res)=>{
     console.log("receving get request at /login")
     res.json({message: 'receving get request at /login'})
@@ -32,5 +31,16 @@ router.post("/login",  passport.authenticate("local"), (req,res)=>{
 })
 
 //TODO add log out route
+router.get("/logout", (req,res,next)=>{
+    req.logout((err)=>{
+        if (err){
+            return next(err)
+        }
+        // do something here. 
+    })
+    res.send()
+})
+
+// add authentification to all protected routes.
 
 module.exports = router

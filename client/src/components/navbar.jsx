@@ -3,7 +3,6 @@ function Nav(){
 
     return (
         <>
-        <h2>This the nav bar that goes to the left</h2>
         <p>Instagram logo</p>
         <Link to="/">Home</Link>
         {/* Search is a pop up */}

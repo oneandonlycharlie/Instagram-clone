@@ -4,7 +4,7 @@ const app = express();
 // const path = require("node:path");
 const authRouter = require("./controllers/authRouter")
 const passport = require("passport")
-// const db = require("./models/queries")
+
 
 //middleware to parse URLs
 app.use(express.urlencoded({ extended: false }));
@@ -15,7 +15,6 @@ app.use(express.json())
 const PORT = process.env.PORT || 3001;
 
 // database connected 
-const bcrypt = require("bcryptjs")
 const pool = require("./models/pool")
 
 // set up and store session
@@ -34,9 +33,9 @@ app.use(session({
     saveUninitialized:true,
     cookie: { secure: false, maxAge: 30 * 24 * 60 * 60 * 1000 }
 }))
-app.use(passport.session());
 
 // require the entire passport verification config
+app.use(passport.session());
 require("./config/passport")
 
 // direct requests to all routes

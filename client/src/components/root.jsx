@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Outlet, Link } from 'react-router-dom';
-import '../styles/home.css'
+import '../styles/root.css'
 import SignUp from './signup';
 import Nav from './navbar';
 
@@ -23,28 +23,29 @@ function Home() {
     <>
       {loggedIn? 
         <>
-          <h2>You are in the user page</h2>
-          <Nav /> 
+          <header>
+            <Nav /> 
+          </header>
           <main>
+            <h2>You are in the user page</h2>
             <Outlet />
           </main>
         </>
       : 
        <>
-         <div className="card">
-          <div className="App">
-            <header className="App-header">
-              <p>{!data ? "Loading..." : data}</p>
-            </header>
+        <section className='login'>
+          <div className="card">
+            <div className="App">
+              <header className="App-header">
+                <p>{!data ? "Loading..." : data}</p>
+              </header>
+            </div>
+            <button onClick={()=> {setLogin(true)}}>
+              Click to pass log in 
+            </button>
           </div>
-          <p>
-            This is going to be to be the landing page
-          </p>
-          <button onClick={()=> {setLogin(true)}}>
-            Click to pass log in 
-          </button>
-        </div>
-        <SignUp /> 
+          <SignUp /> 
+        </section>
         </>}
     </>
   )
