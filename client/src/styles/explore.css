@@ -1,0 +1,11 @@
+.explore {
+    display: inherit;
+    border: 1px white solid;
+    width: 963px;
+    flex-wrap: wrap;
+    flex-basis: 160px;
+}
+
+.explore-post {
+    border: 1px lightblue dotted;
+}

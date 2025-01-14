@@ -7,7 +7,37 @@
 }
 
 .post {
+    --ig-seperator:38,38,38;
     border: 1px dotted white;
     width: 470px;
     min-height: 500px;
+    display: flex;
+    flex-direction: column;
+    border-bottom-style: solid;
+    border-bottom-color: rgb(var(--ig-separator));
+}
+
+.handle {
+    text-align: left;
+}
+
+.post-image {
+    min-height: 468px;
+    border: 2px lightblue solid;
+}
+
+.buttons {
+    text-align: left;
+}
+
+.info {
+    text-align: left;
+}
+
+p {
+    display: block;
+}
+
+span {
+    padding-right: 10px;
 }
