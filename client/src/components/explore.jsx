@@ -1,26 +1,30 @@
+import { useOutletContext } from "react-router-dom"
 import "../styles/explore.css"
 function Explore(){
 
-    const explorePosts = [1,2,3,4,5,6,7,8,9,10]
+    const [userData,setUserData] = useOutletContext()
+    const posts = userData.recommendations.reduce((acc,account)=>{
+        return acc.concat(account.posts)
+    },[])
 
     return (
-        <>
-         <h2>This is your explore feed</h2>
         <section className="explore">
-            {explorePosts.map((i)=> (
-                <Post key={i}/>
+            {posts.map((post)=> (
+                <Post key={post.id}
+                      post={post}
+                
+                />
             ))}
         </section>
-        </>
     )
 }
 
-function Post(){
-
+function Post({post}){
+    
 
     return (
         <div className="explore-post">
-            <img src="" alt="explore post" />
+            <img src={post.image} alt="explore post" />
         </div>
     )
 
