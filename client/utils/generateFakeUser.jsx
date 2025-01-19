@@ -6,37 +6,49 @@
 
 import { faker } from '@faker-js/faker'
 
-function generateRandomUser(num=5){
-
-        
-    const generatePosts = (num)=>{
-        let posts = [];
-        for (let i=0; i < num; i++){
-            posts.push(generateRandomPost())
-        }
-        return posts
-    }
-
-    return {
-        userName: faker.person.fullName(),
-        id: faker.number.int(),
-        avatar: faker.image.avatar(),
-        bio:faker.person.bio(),
-        noOfFollowers: faker.number.int({min:0, max:10000}),
-        noOfFollowees:faker.number.int({min:0, max:10000}),
-        posts: generatePosts(num),
-    }
-}
-
-function generateRandomPost(){
+function generateRandomPost(userName){
 
     return {
         id: faker.number.int(),
         image:faker.image.url(),
         description: faker.lorem.paragraph(),
         noOfLikes: faker.number.int({min:0,max:1000}),
-        postTime: faker.date.recent({days:10})
+        postTime: faker.date.recent({days:10}).toDateString(),
+        postedBy:userName
     }
 }
 
-export default generateRandomUser;
+function generateRandomUser(num=5){
+
+    const userName = faker.person.fullName()
+    const generatePosts = (userName,num)=>{
+        let posts = [];
+        for (let i=0; i < num; i++){
+            posts.push(generateRandomPost(userName))
+        }
+        return posts
+    }
+
+    return {
+        userName,
+        id: faker.number.int(),
+        avatar: faker.image.avatar(),
+        bio:faker.person.bio(),
+        noOfFollowers: faker.number.int({min:0, max:10000}),
+        noOfFollowees:faker.number.int({min:0, max:10000}),
+        posts: generatePosts(userName,num),
+    }
+}
+
+function generateUsers(num){
+    if (num == 1){
+        return generateRandomUser()
+    }
+    let userList =[];
+    for (let i=0; i<num; i++){
+        userList.push(generateRandomUser())
+    }
+    return userList
+}
+
+export {generateUsers};
