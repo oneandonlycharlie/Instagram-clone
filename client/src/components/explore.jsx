@@ -23,8 +23,11 @@ function Post({post}){
     
 
     return (
-        <div className="explore-post">
+        <div className="image-container">
             <img src={post.image} alt="explore post" />
+            <div className="content">
+                <span>{post.noOfLikes} Likes xx comments</span>  
+            </div>
         </div>
     )
 

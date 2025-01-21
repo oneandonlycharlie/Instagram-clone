@@ -1,11 +1,47 @@
 .explore {
-    display: inherit;
-    border: 1px white solid;
-    width: 963px;
-    flex-wrap: wrap;
-    flex-basis: 160px;
+    margin-left: 10px;
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 5px;
+    width: 450px;
 }
 
-.explore-post {
-    border: 1px lightblue dotted;
+.explore .image-container {
+    border: 1px solid lightblue;
+    width: 150px;
+    position: relative;
+    img {
+        width: 100%;
+        aspect-ratio: 1/1;
+        object-fit: cover;
+    }
 }
+
+.image-container .content {
+    position: absolute;
+    background-color: rgba(0,0,0,0.5);
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    opacity: 0;
+    span {
+        text-align: center;
+        position: inherit;
+        top:40%;
+        left:5%;
+        right:5%;
+    }
+}
+
+.image-container .content:hover {
+    opacity: 1;
+}
+
+/* .img-container .content {
+    position: absolute;
+    top:50%;
+    left:50%;
+    transform: translate(-50%, -50%);
+    color: white;
+} */
