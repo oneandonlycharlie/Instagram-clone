@@ -7,23 +7,47 @@
 }
 
 .post {
-    --ig-seperator:38,38,38;
-    border: 1px dotted white;
     width: 470px;
-    min-height: 500px;
     display: flex;
     flex-direction: column;
-    border-bottom-style: solid;
-    border-bottom-color: rgb(var(--ig-separator));
+    border-bottom:1px solid #a8a8a850;
+    margin: 5px 0px;
 }
 
-.handle {
+.post .handle {
     text-align: left;
+    display: inherit;
+    gap: 5px;
+    align-items: center;
+    padding: 0px 0px 12px 4px;
+    .time {
+        color: #a8a8a8
+    }
 }
 
-.post-image {
-    min-height: 468px;
-    border: 2px lightblue solid;
+.post .avatar {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: linear-gradient(45deg, #F58529, #D42AFF);
+    padding:2px;
+    border: none;
+
+}
+.post .image {
+    img {
+        width:466px;
+        min-height: 466px;
+        max-height: 585px;
+        object-fit: cover;
+        border:1px solid #a8a8a86b;
+        border-radius: 3px;
+    }
+}
+
+.name, .like {
+    font-size: 12px;
+    font-weight: 600;
 }
 
 .buttons {
@@ -39,5 +63,5 @@ p {
 }
 
 span {
-    padding-right: 10px;
+    padding:0px 5px 0px 0px;
 }

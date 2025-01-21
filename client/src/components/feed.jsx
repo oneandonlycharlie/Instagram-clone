@@ -36,8 +36,9 @@ function Post({post,accounts}){
        <div className="post">
             <div className="handle">
                 <img className='avatar' src={account.avatar} alt="profile pic" />
-                <span>{account.userName}</span>
-                <span>{post.postTime}</span>
+                <span className="name">{account.userName}</span>
+                <span className="time">·</span>
+                <span className="time">{post.postTime}</span>
             </div>
             <div className="image">
                 <img src={post.image} alt="post image" />
@@ -48,8 +49,8 @@ function Post({post,accounts}){
                 {/* To do: add a pop up display for comments */}
             </div>
             <div className="info">
-                <p>{post.noOfLikes} likes</p>
-                <span>{account.userName}</span>
+                <p className="like">{post.noOfLikes} likes</p>
+                <span className="name">{account.userName}</span>
                 <span>{post.description}</span>
                 <p><input type="text" name="" id="" placeholder="Add a comment..."/><button>Post</button></p>
             </div>
