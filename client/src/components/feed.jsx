@@ -1,6 +1,5 @@
 import { useOutletContext } from "react-router-dom"
 import "../styles/feed.css"
-import ForYou from "./recommendations"
 import { useState } from "react";
 function Feed(){
 
@@ -11,22 +10,30 @@ function Feed(){
     const feedPosts = feedAccounts.reduce((acc,account,) => {
         return acc.concat(account.posts)
     },[])
+    const recommendedUsers = userData.recommendations
 
     return (
-        <>
-         <section className="feed">
-            {feedPosts.map((post) => (
-             
-               <Post key={post.id} 
-                     post={post}
-                     accounts={feedAccounts}
-                     setUserData={setUserData}
-                    
-               />
-            ))}
-         </section>
-         {/* <ForYou /> */}
-        </>
+        <div className="feedpage">
+            <section className="feed">
+                {feedPosts.map((post) => (
+                <Post key={post.id} 
+                        post={post}
+                        accounts={feedAccounts}
+                        setUserData={setUserData}
+                />
+                ))}
+            </section>
+            <section className="recommend">
+                <p className="title">Suggested for you</p>
+                {recommendedUsers.map((account)=> (
+                    <div className="user" key={account.id}>
+                        <img src={account.avatar} alt="" className="avatar" />
+                        <p>{account.userName}</p>
+                        <button>Follow</button>
+                    </div>
+                ))}
+            </section>
+        </div>
     )
 }
 
