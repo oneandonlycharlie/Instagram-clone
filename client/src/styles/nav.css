@@ -1,0 +1,15 @@
+.nav-avatar {
+    width: 20px;
+    aspect-ratio: 1/1;
+    border-radius: 50%;
+}
+
+.create-button {
+    background-color: black;
+    border: none;
+}
+
+.nav-logo {
+    padding-top: 20px;
+    margin-bottom: 30px;
+}

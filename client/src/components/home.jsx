@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Outlet } from 'react-router-dom';
-import '../styles/root.css'
+import '../styles/home.css'
 import SignUp from './signup';
 import Nav from './navbar';
 import { user,followees,recommendedUsers } from '../../utils/userData';
@@ -29,7 +29,7 @@ function Home() {
       {loggedIn? 
         <>
           <header>
-            <Nav /> 
+            <Nav user={userData.user}/> 
           </header>
           <main>
             <h2>This is outlets pages under Home</h2>
