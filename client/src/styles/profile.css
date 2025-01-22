@@ -1,0 +1,92 @@
+.profile {
+    display: flex;
+    flex-direction: column;
+    width:600px;
+    align-items: flex-start;
+    padding-left: 20px;
+}
+
+.profile .handle {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    grid-template-rows: repeat(4,1fr);
+    width: inherit;
+    height:240px;
+    gap:5px
+}
+
+.my-posts {
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    width:600px;
+    gap: 5px;
+    border-top:1px #a8a8a8 solid;
+    padding-top: 30px;
+}
+
+.my-post {
+    width:200px;
+    position: relative;
+    img {
+    width:inherit;
+    aspect-ratio: 1/1;
+    object-fit: cover;
+    }
+}
+
+.my-post .content {
+    position: absolute;
+    background-color: rgba(0,0,0,0.5);
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    opacity: 0;
+    span {
+        text-align: center;
+        position: inherit;
+        top:40%;
+        left:5%;
+        right:5%;
+    }
+}
+
+.my-post .content:hover {
+    opacity: 1;
+}
+
+.profile .avatar {
+    grid-area: 1 / 1 / 5 / 2;
+    width: 150px;
+    aspect-ratio: 1/1;
+    border-radius: 50%;
+    padding:10px 30px;
+}
+
+.handle div {
+    text-align: left;
+}
+
+.handle .info {
+    display: flex;
+    gap:20px;
+    font-size: 14px;
+    .number {
+        font-weight: 800;
+        padding:2px;
+    }
+}
+
+.handle .name {
+    font-size: 18px;
+    padding-right: 30px;
+}
+
+.handle button{
+    border-radius: 5px;
+    border: none;
+    padding:5px 10px;
+    font-size: 12px;
+    font-weight: 600;
+    background-color: #a8a8a87b;
+}

@@ -21,17 +21,17 @@ function Handle({user, followees}){
     console.log(user)
     return (
         <div className="handle">
-            <img src={user.avatar} alt="headshot" />
+            <img className='avatar' src={user.avatar} alt="headshot" />
             <div>   
-                <span>{user.userName}</span>
+                <span className="name">{user.userName}</span>
                 <button>Edit profile</button>
             </div>
-            <div>
-                <span>number of posts - {user.posts.length}</span>
-                <span>number of followers - N/A</span>
-                <span>number of following - {followees.length} </span>
+            <div className="info">
+                <span><span className="number">{user.posts.length}</span>posts</span>
+                <span><span className="number">{user.noOfFollowers}</span>followers</span>
+                <span><span className="number">{followees.length}</span>following</span>
             </div>
-            <span>{user.bio}</span>
+            <div>{user.bio}</div>
         </div>
     )
 }
@@ -56,6 +56,7 @@ function Post({post}){
     return (
         <div className="my-post">
             <img src={post.image} alt="my post" />
+            <div className="content"><span>{post.noOfLikes} likes xx comments</span></div>
         </div>
     )
 
