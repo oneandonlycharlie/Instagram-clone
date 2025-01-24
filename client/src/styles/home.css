@@ -7,7 +7,7 @@
 
 
 header {
-  border: 1px solid white;
+  border-right:1px solid #a8a8a838;
   display: flex;
   flex-direction: column;
   position: fixed;
@@ -22,6 +22,16 @@ main {
   flex-direction: column;
   margin-left: 72px;
   width: 1181px;
+  padding-top: 30px;
+  position:relative
 }
 
-
+.popup-window {
+  position: fixed;
+  width: inherit;
+  background-color: black;
+  opacity: 0.3;
+  left:-56px;
+  top: 0px;
+  height:100vh;
+}
