@@ -44,7 +44,9 @@ const closeCreate = ()=> setCreateVisibility(false)
             <Outlet context={[userData,setUserData]}/>
             {createPopupVisible && (
               <div className="popup-window">
-                <Create closeWindow={closeCreate} />
+                <Create closeWindow={closeCreate}
+                        user={userData.user}
+                 />
               </div>
               )}
           </main>
