@@ -12,7 +12,8 @@
     grid-template-rows: repeat(4,1fr);
     width: inherit;
     height:240px;
-    gap:5px
+    gap:5px;
+    position:relative;
 }
 
 .my-posts {
@@ -58,9 +59,9 @@
 .profile .avatar {
     grid-area: 1 / 1 / 5 / 2;
     width: 150px;
-    aspect-ratio: 1/1;
     border-radius: 50%;
-    padding:10px 30px;
+    padding:5px;
+    background: linear-gradient(45deg, #F58529, #D42AFF);
 }
 
 .handle div {
@@ -77,7 +78,7 @@
     }
 }
 
-.handle .name {
+.profile .handle .name {
     font-size: 18px;
     padding-right: 30px;
 }
@@ -89,4 +90,45 @@
     font-size: 12px;
     font-weight: 600;
     background-color: #a8a8a87b;
+}
+
+.handle .edit {
+    background-color: aliceblue;
+    box-shadow: rgba(0, 0, 0, 0.56) 0px 22px 70px 4px;
+    border-radius: 10px;
+    position:absolute;
+    width:300px;
+    aspect-ratio: 1/1;
+    z-index: 1;
+    top:20%;
+    left:30%;
+    padding:15px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap:10px;
+    .buttons {
+       display:flex;
+       width: inherit;
+       justify-content:space-between;
+    }
+    button {
+        color:rgb(6, 160, 216);
+        background-color: aliceblue;
+    }
+    button:hover {
+        background-color:rgb(6, 160, 216);
+        color:aliceblue;
+    }
+    input, textarea {
+        outline:none;
+        width:200px;
+        border-radius: 5px;
+        background-color: rgba(147, 140, 140, 0.913);
+        border:none;
+        padding:5px 10px;
+    }
+    textarea {
+        height:5rem;
+    }
 }
