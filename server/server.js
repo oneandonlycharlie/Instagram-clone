@@ -2,7 +2,7 @@
 const express = require("express")
 const app = express();
 // const path = require("node:path");
-const authRouter = require("./controllers/authRouter")
+const authRouter = require("./controllers/authRouter.js")
 const passport = require("passport")
 
 
@@ -15,7 +15,7 @@ app.use(express.json())
 const PORT = process.env.PORT || 3001;
 
 // database connected 
-const pool = require("./models/pool")
+const pool = require("./models/pool.js")
 
 // set up and store session
 const session = require("express-session")
@@ -36,12 +36,16 @@ app.use(session({
 
 // require the entire passport verification config
 app.use(passport.session());
-require("./config/passport")
+require("./config/passport.js")
+
+
+// setting up fake data
+const {user, followees, recommendedUsers} = require("./utils/userData.js")
 
 // direct requests to all routes
 app.get("/api",(req,res)=>{
     console.log(req.body)
-    res.json({message: "Server connected"})
+    res.json({message: "Server connected", data:{user,followees,recommendedUsers}})
 })
 app.use("/account", authRouter)
 

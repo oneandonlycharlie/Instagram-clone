@@ -10,7 +10,7 @@ function Feed(){
     const feedPosts = feedAccounts.reduce((acc,account,) => {
         return acc.concat(account.posts)
     },[])
-    const recommendedUsers = userData.recommendations
+    const recommendedUsers = userData.recommendedUsers
 
     return (
         <div className="feedpage">

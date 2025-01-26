@@ -4,13 +4,13 @@
     step 4: write a function for random recommendations
     step 5: connect front end to back end, write these fake data into data base */
 
-import { faker } from '@faker-js/faker'
+const { faker } = require('@faker-js/faker')
 
 function generateRandomPost(userName){
 
     return {
         id: faker.number.int(),
-        image:faker.image.url(),
+        image:faker.image.urlPicsumPhotos({height:faker.number.int({min:400,max:700}), blur:0}),
         description: faker.lorem.paragraph(),
         noOfLikes: faker.number.int({min:0,max:1000}),
         postTime: faker.date.recent({days:10}).toDateString(),
@@ -51,4 +51,4 @@ function generateUsers(num){
     return userList
 }
 
-export {generateUsers};
+module.exports = { generateUsers };
