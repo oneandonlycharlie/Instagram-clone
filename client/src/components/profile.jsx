@@ -1,39 +1,57 @@
-import { useOutletContext } from "react-router-dom"
+import { useOutletContext, useParams } from "react-router-dom"
 import "../styles/profile.css"
 import { useState } from "react"
+
+
 function Profile(){
 
-    const [userData,setUserData]=useOutletContext()
-
+const [userData,setUserData]=useOutletContext()
+const {username} = useParams()
+let isEditable = true;
+const getUser = ()=> {
+    console.log(username)
+    if (!username){
+        return userData.user
+    } else if (username == userData.user.userName){
+        return userData.user
+    } else if (username){
+        let displayUser = userData.followees.find(account=>account.userName == username)
+        isEditable = false;
+        return displayUser
+    }
+}
+const user= getUser()
+console.log(user)
 
     return (
         <section className="profile">
             <Handle 
-                user={userData.user}
-                followees={userData.followees}
+                user={user}
+                editStatus={isEditable}
             />
-            <AllPosts posts={userData.user.posts}/>
+            <AllPosts posts={user.posts}/>
         </section>
     )
 }
 
-function Handle({user, followees}){
+function Handle({user,editStatus}){
 
     const [editPageVisible, setEditVisibility] = useState(false)
 
-    console.log(user)
     return (
         <div className="handle">
             <img className='avatar' src={user.avatar} alt="headshot" />
             <div>   
                 <span className="name">{user.userName}</span>
-                <button onClick={()=>setEditVisibility(true)}
-                >Edit profile</button>
+                {editStatus &&
+                    <button onClick={()=>setEditVisibility(true)}
+                    >Edit profile</button>
+                }
             </div>
             <div className="info">
                 <span><span className="number">{user.posts.length}</span>posts</span>
                 <span><span className="number">{user.noOfFollowers}</span>followers</span>
-                <span><span className="number">{followees.length}</span>following</span>
+                <span><span className="number">{user.noOfFollowees}</span>following</span>
             </div>
             <div>{user.bio}</div>
             {editPageVisible && 

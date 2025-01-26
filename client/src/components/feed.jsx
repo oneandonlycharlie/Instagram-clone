@@ -1,4 +1,4 @@
-import { useOutletContext } from "react-router-dom"
+import { useOutletContext, Link } from "react-router-dom"
 import "../styles/feed.css"
 import { useState } from "react";
 function Feed(){
@@ -46,7 +46,9 @@ function Post({post,accounts,setUserData}){
     return (
        <div className="post">
             <div className="handle">
-                <img className='avatar' src={account.avatar} alt="profile pic" />
+                <Link to={`/user/`+ account.userName} >
+                    <img className='avatar' src={account.avatar} alt="profile pic" />
+                </Link >
                 <span className="name">{account.userName}</span>
                 <span className="time">·</span>
                 <span className="time">{post.postTime}</span>

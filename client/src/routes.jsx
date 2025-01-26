@@ -1,5 +1,5 @@
 import { createBrowserRouter } from "react-router-dom";
-import Home from "./components/root";
+import Home from "./components/home";
 import Feed from "./components/feed"
 import Explore from "./components/explore";
 import Inbox from "./components/messages";
@@ -13,9 +13,10 @@ const router = createBrowserRouter([
             {index:true, element: <Feed />},
             {path: "/explore", element: <Explore/>},
             {path:"/messages", element: <Inbox />},
-            {path:"/profile", element:<Profile />}
-        ]
-    }
+            {path:"/profile", element:<Profile />},
+            {path:"/user/:username", element: <Profile />},
+        ],
+    },
 ])
 
 export default router
