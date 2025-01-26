@@ -1,9 +1,10 @@
 const { Router } = require("express")
 const router = new Router()
-const db = require("../models/queries")
+const db = require("../models/queries.js")
 const passport = require("passport")
+const profileRouter = require("./profileRouter.js")
 
-require("../config/passport");
+require("../config/passport.js");
 
 //enable sign up and create new user in db
 router.post("/signup", (req,res)=>{
@@ -42,5 +43,9 @@ router.get("/logout", (req,res,next)=>{
 })
 
 // add authentification to all protected routes.
+
+
+// direct to profile router for edits
+router.use("/profile", profileRouter)
 
 module.exports = router

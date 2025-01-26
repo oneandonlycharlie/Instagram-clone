@@ -13,8 +13,7 @@ const router = createBrowserRouter([
             {index:true, element: <Feed />},
             {path: "/explore", element: <Explore/>},
             {path:"/messages", element: <Inbox />},
-            {path:"/profile", element:<Profile />},
-            {path:"/user/:username", element: <Profile />},
+            {path:"/profile/:username", element:<Profile />},
         ],
     },
 ])

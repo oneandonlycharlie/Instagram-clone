@@ -92,24 +92,52 @@ function Post({post}){
 
 function EditPopup({user, close}){
 
-    const [name, setName] = useState(user.userName)
-    const [bio, setBio] = useState(user.bio)
+    const [formData, setFormData] = useState({name:user.userName,bio:user.bio})
+
+    const handleChange = (e)=>{
+        const {name, value} = e.target;
+        setFormData(prevData => ({
+            ...prevData,
+            [name]:value
+        }))
+    }
+
+    const submitInfo =(e) =>{
+        e.preventDefault();
+        console.log(formData);
+        console.log("info submitted!");
+
+        const route = "/account/profile"
+
+        fetch(route,{
+            method:"POST",
+            body: JSON.stringify(formData),
+            headers:{
+                "Content-Type":'application/json'
+            }
+        }).then((res)=>{
+            console.log(res.status)
+        });
+        close()
+    }
 
     return (
-        <div className="edit">
+        <form className="edit" onSubmit={submitInfo}>
             <div className="buttons">
                 <button onClick={close}>Close</button>
-                <button>Submit</button>
+                <button type="submit">Submit</button>
             </div>
             <img className="avatar"src={user.avatar} alt="" />
             <input type="text" 
-                value={name}
-                onChange={(e)=>setName(e.target.value)}/>
-            <textarea name="" id="" 
-                value={bio}
-                onChange={(e)=>setBio(e.target.value)}
+                value={formData.name}
+                name="name"
+                onChange={handleChange}/>
+            <textarea id="" 
+                value={formData.bio}
+                name='bio'
+                onChange={handleChange}
             ></textarea>
-        </div>
+        </form>
     )
 
 }
