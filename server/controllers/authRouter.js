@@ -51,6 +51,7 @@ router.get("/user", async(req,res)=>{
 
         res.json({
             message:'Log in successful', 
+            isAuthenticated:req.isAuthenticated(),
             data
             })
     } else {
@@ -66,7 +67,8 @@ router.get("/logout", (req,res,next)=>{
         }
         // do something here. 
     })
-    res.send()
+    console.log("log out success", req.isAuthenticated())
+    res.json(req.isAuthenticated())
 })
 
 // add authentification to all protected routes.

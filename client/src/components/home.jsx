@@ -8,7 +8,7 @@ import Create from './create'
 
 function Home() {
 //hooks to control login state and server data
-  const [loggedIn, setLogin]=useState(false);
+  const [loggedIn, setLogin]=useState(null);
   const [serverMsg, setServerMsg] = useState(null);
 
 // userdata that will be passed on the child routes
@@ -16,22 +16,27 @@ function Home() {
 
 // connecting to server and fetching data from database
   useEffect(() => {
-    fetch("/account/user")
+    //refresh data every 5 seconds
+    const intervalId = setInterval(() => {
+      fetch("/account/user")
       .then((res) => res.json())
-      .then((res) => {
-        setServerMsg(res.message); 
+      .then((res) => { 
+        console.log(res.message);
+        setLogin(res.isAuthenticated)
         setUserData(res.data)});
-  }, []);
+    }, 50000)
 
- 
+    return ()=>{clearInterval(intervalId)}
+  },[loggedIn]);
+
   // set up switch for popup
 const [createPopupVisible, setCreateVisibility] = useState(false);
 const openCreate = () => setCreateVisibility(true);
 const closeCreate = ()=> setCreateVisibility(false)
 
 console.log(`log in is ${loggedIn}`)
-console.log(serverMsg)
 console.log(userData)
+
 
   return (
     <>
@@ -41,6 +46,7 @@ console.log(userData)
             <Nav 
               user={userData.user}
               openWindow={openCreate}
+              setLogin={setLogin}
             /> 
           </header>
           <main>
@@ -57,7 +63,10 @@ console.log(userData)
       : 
        <>
         <section className='login'>
-          <LogIn passLogin={()=>setLogin(true)}/> 
+          <LogIn
+            loggedIn={loggedIn} 
+            setLogin={setLogin}
+            setUserData={setUserData}/> 
         </section>
         </>}
     </>

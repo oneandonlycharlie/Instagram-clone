@@ -2,8 +2,17 @@ import { Link } from 'react-router-dom'
 import { useState } from 'react'
 import '../styles/nav.css'
 
-function Nav({user,openWindow}){
+function Nav({openWindow,user,setLogin}){
 
+const handleLogOut = ()=>{
+    fetch("./account/logout",)
+        .then((res)=> res.json())
+        .then((res)=>{
+            console.log(res)
+            setLogin(res)})
+
+    console.log("logged out")
+}
 
     return (
         <>
@@ -36,10 +45,8 @@ function Nav({user,openWindow}){
                 width="20">
                     <title>Explore</title>
                     <polygon fill="none" points="13.941 13.953 7.581 16.424 10.06 10.056 16.42 7.585 13.941 13.953" stroke="white" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></polygon>
-                    <polygon points="10.06 10.056 13.949 13.945 7.581 16.424 10.06 10.056"></polygon>
                     <circle cx="12.001" cy="12.005" fill="none" r="10.5" stroke="white" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></circle>
             </svg>
-
         </Link>
         {/* Notification is a pop up too */}
         {/* <Link>Notifications</Link> */}
@@ -57,10 +64,13 @@ function Nav({user,openWindow}){
                     <line fill="none" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" x1="12.003" x2="12.003" y1="6.545" y2="17.455"></line>
             </svg>
         </button>
-        <Link to="profile">                                      
+        <Link to={"/profile/" + user.username}>                                      
             <img className='nav-avatar'src={user.avatar} alt="" />
         </Link>
         {/* <Link to="/messages">Messages</Link> */}
+        <button className='log-out'
+            onClick={handleLogOut}
+        >Log out</button>
         </>
     )
 

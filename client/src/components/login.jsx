@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import InstagramLogo from "../assets/logoWhite.svg"
 import '../styles/login.css'
 
-function LogIn({passLogin}){
+function LogIn({setLogin,setUserData}){
 
 const [requireSignup, openSignup] = useState(false)
 const [signupSuccess, setSuccess] = useState(false)
@@ -42,7 +42,8 @@ const handleLogIn = (e)=>{
             console.log(res.message)
             console.log(res.data)
             if (res.message == 'Log in successful'){
-                passLogin()
+                setLogin(res.isAuthenticated)
+                setUserData(res.data)
             } else if (res.message == 'failed to log in, try again'){
                 // send error reminder
             }
