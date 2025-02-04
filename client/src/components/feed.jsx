@@ -8,6 +8,7 @@ function Feed(){
     // extracting posts for display
     const feedAccounts = [userData.user, ...userData.demoUsers]
     const feedPosts = userData.posts
+    feedPosts.sort((a, b)=> a.postid - b.postid)
 
     console.log(feedAccounts)
     console.log(feedPosts)
@@ -18,7 +19,7 @@ function Feed(){
         <div className="feedpage">
             <section className="feed">
                 {feedPosts.map((post) => (
-                <Post key={post.id} 
+                <Post key={post.postid} 
                         post={post}
                         accounts={feedAccounts}
                         setUserData={setUserData}
@@ -41,9 +42,29 @@ function Feed(){
 
 function Post({post,accounts,setUserData}){
     const account = accounts.find((account)=> account.username == post.username)
-    // send data back to server
-
     const [comment, setComment] = useState("")
+    const [liked, setLike] = useState(false)
+
+    const handleLike = (e)=>{
+        console.log("I am clicekd")
+        fetch("/account/post/like",{
+            method: "POST",
+            body:JSON.stringify({postid:post.postid}),
+            headers:{
+                "Content-Type":"application/json"
+            }
+        })
+            .then((res)=>{
+                console.log(res.status)
+                res.json
+            })
+            .then((res)=>{
+                setUserData(res.data)
+            })
+        console.log(e.target)
+        setLike(!liked)
+    }
+    // send data back to server
     
     return (
        <div className="post">
@@ -53,14 +74,16 @@ function Post({post,accounts,setUserData}){
                 </Link >
                 <span className="name">{account.username}</span>
                 <span className="time">·</span>
-                <span className="time">{post.postTime}</span>
+                <span className="time">{post.posttime}</span>
+                <p>{post.postid}</p>
             </div>
             <div className="image">
                 <img src={post.image} alt="post image" />
             </div>
             <div className="buttons">
-                <button >
-                    <svg 
+                <button 
+                    onClick={handleLike}>
+                    <svg className={liked? 'liked':''}
                         aria-label="Like" 
                         fill="currentColor" 
                         height="20" 
@@ -86,7 +109,7 @@ function Post({post,accounts,setUserData}){
                 {/* To do: add a pop up display for comments */}
             </div>
             <div className="info">
-                <p className="like">{post.noOfLikes} likes</p>
+                <p className="like">{post.nooflikes} likes</p>
                 <span className="name">{account.username}</span>
                 <span>{post.description}</span>
                 <p>
