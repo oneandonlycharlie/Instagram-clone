@@ -1,9 +1,10 @@
 // express app set up
 const express = require("express")
 const app = express();
-// const path = require("node:path");
 const authRouter = require("./controllers/authRouter.js")
 const passport = require("passport")
+const cors = require('cors');
+app.use(cors());
 
 
 //middleware to parse URLs
@@ -11,18 +12,20 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json())
 
 // environment variables stored
-// require("dotenv").config();
+require("dotenv").config();
 const PORT = process.env.PORT || 3001;
 
 // database connected 
 const pool = require("./models/pool.js")
+const db = require("./models/queries.js")
 
 // set up and store session
 const session = require("express-session")
 const pgSession = require('connect-pg-simple')(session);
 const sessionStore = new pgSession({
     pool: pool,
-    tableName: "session"
+    tableName: "user_session",
+    createTableIfMissing:true
 })
 
 // creates new session and fires session id to cookie
@@ -39,16 +42,20 @@ app.use(passport.session());
 require("./config/passport.js")
 
 
-// setting up fake data
-const {user, followees, recommendedUsers} = require("./utils/userData.js")
-
 // direct requests to all routes
-app.get("/api",(req,res)=>{
-    console.log(req.body)
-    res.json({message: "Server connected", data:{user,followees,recommendedUsers}})
+app.get("/api", (req,res)=>{
+    res.json({message: "Server connected"})
 })
+
+// direct to profile router for edits
+
 app.use("/account", authRouter)
 
-app.listen(PORT, ()=>{
-    console.log(`server listening at ${PORT}`)
+// testing that api is valid
+app.get("/test", (req,res)=>{
+    res.send({message:"get request works"})
+})
+
+app.listen(PORT,()=>{
+    console.log(`server listening at ${PORT}`);
 })

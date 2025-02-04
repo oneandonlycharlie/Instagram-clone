@@ -6,29 +6,52 @@ const profileRouter = require("./profileRouter.js")
 
 require("../config/passport.js");
 
+
 //enable sign up and create new user in db
 router.post("/signup", (req,res)=>{
     console.log("response received! Signing up..")
     console.log(req.body)
     try {
-            db.createUser(req.body.email, req.body.password);
-            res.send();
+            db.createUser(req.body.userName, req.body.password);
+            res.send({massage:'sign up success'});
     } catch(err){
         return next(err)
     } 
 })
 
 // handle log in request and verification
-router.get("/login", (req,res)=>{
-    console.log("receving get request at /login")
-    res.json({message: 'receving get request at /login'})
+
+// router.get("/login", (req,res)=>{
+//     console.log("receving get request at /login")
+//     res.json({message: 'receving get request at /login'})
+// })
+
+router.post("/login", 
+    // Redirect on failure   
+    passport.authenticate("local", {failureRedirect: '/account/failure' }),
+    (req,res)=>{
+        // console.log(req.session)
+        // console.log(req.isAuthenticated())
+        res.redirect("/account/user")
+    }
+)
+
+router.get("/failure", (req,res)=>{
+    console.log("failed to log in, try again")
+    console.log(req.user)
+    console.log(req.isAuthenticated())
+    res.json({message: 'failed to log in, try again'})
 })
 
-router.post("/login",  passport.authenticate("local"), (req,res)=>{
+router.get("/user", (req,res)=>{
+    console.log('directing you to user page..')
     console.log(req.user)
-    console.log(req.session)
-    console.log("logging in..");
-    res.send();
+    console.log(req.isAuthenticated())
+    if (req.isAuthenticated()){
+        res.json({message:'you are finally loggedin!', data:req.user})
+    } else {
+        res.json({message: 'failed to log in, try again'})
+    }
 })
 
 //TODO add log out route

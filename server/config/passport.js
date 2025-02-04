@@ -9,13 +9,13 @@ const passport  = require("passport")
 const LocalStrategy = require("passport-local").Strategy
 
 const customFields = {
-    usernameField: "email",
+    usernameField: "userName",
     passwordField: "password"
 }
 
 const verifyCallBack = async(username, password, done)=>{
     try {
-        const { rows } = await pool.query("SELECT * FROM users_test WHERE username = $1", [username]);
+        const { rows } = await pool.query("SELECT * FROM users WHERE login_name = $1", [username]);
         const user = rows[0];
         const passwordMatch = await bcrypt.compare(password, user.password);
 
@@ -38,12 +38,14 @@ passport.use(strategy);
 
 // This stores user id in request session
 passport.serializeUser((user, done) => {
-  done(null, user.id);
+    // console.log('user to seriazlie', user)
+    done(null, user.userid);
 });
 passport.deserializeUser(async(id,done)=>{
     try {
-        const { rows } = await pool.query("SELECT * FROM users_test WHERE id = $1", [id]);
+        const { rows } = await pool.query("SELECT * FROM users WHERE userid = $1", [id]);
         const user = rows[0];
+        // console.log(`user in session is ${user.username}`)
         done(null, user);
     } catch(err) {
         done(err);
