@@ -3,9 +3,7 @@ import "../styles/explore.css"
 function Explore(){
 
     const [userData,setUserData] = useOutletContext()
-    const posts = userData.recommendations.reduce((acc,account)=>{
-        return acc.concat(account.posts)
-    },[])
+    const posts = userData.posts
 
     return (
         <section className="explore">

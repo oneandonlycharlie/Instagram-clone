@@ -6,11 +6,13 @@ function Feed(){
     const [userData,setUserData] = useOutletContext();
 
     // extracting posts for display
-    const feedAccounts = [userData.user, ...userData.followees]
-    const feedPosts = feedAccounts.reduce((acc,account,) => {
-        return acc.concat(account.posts)
-    },[])
-    const recommendedUsers = userData.recommendedUsers
+    const feedAccounts = [userData.user, ...userData.demoUsers]
+    const feedPosts = userData.posts
+
+    console.log(feedAccounts)
+    console.log(feedPosts)
+
+    // const recommendedUsers = userData.recommendedUsers
 
     return (
         <div className="feedpage">
@@ -23,7 +25,7 @@ function Feed(){
                 />
                 ))}
             </section>
-            <section className="recommend">
+            {/* <section className="recommend">
                 <p className="title">Suggested for you</p>
                 {recommendedUsers.map((account)=> (
                     <div className="user" key={account.id}>
@@ -32,13 +34,13 @@ function Feed(){
                         <button>Follow</button>
                     </div>
                 ))}
-            </section>
+            </section> */}
         </div>
     )
 }
 
 function Post({post,accounts,setUserData}){
-    const account = accounts.find((account)=> account.userName == post.postedBy)
+    const account = accounts.find((account)=> account.username == post.username)
     // send data back to server
 
     const [comment, setComment] = useState("")
@@ -46,10 +48,10 @@ function Post({post,accounts,setUserData}){
     return (
        <div className="post">
             <div className="handle">
-                <Link to={`/user/`+ account.userName} >
+                <Link to={`/profile/`+ account.username} >
                     <img className='avatar' src={account.avatar} alt="profile pic" />
                 </Link >
-                <span className="name">{account.userName}</span>
+                <span className="name">{account.username}</span>
                 <span className="time">·</span>
                 <span className="time">{post.postTime}</span>
             </div>
@@ -85,7 +87,7 @@ function Post({post,accounts,setUserData}){
             </div>
             <div className="info">
                 <p className="like">{post.noOfLikes} likes</p>
-                <span className="name">{account.userName}</span>
+                <span className="name">{account.username}</span>
                 <span>{post.description}</span>
                 <p>
                     <input 

@@ -5,9 +5,9 @@ require("dotenv").config();
 const createUserList = `
 CREATE TABLE IF NOT EXISTS users (
    userid INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
-   username VARCHAR (255),
+   login_name VARCHAR (255),
    password VARCHAR (255),
-   accountname VARCHAR(255),
+   username VARCHAR(255),
    avatar VARCHAR (255),
    bio VARCHAR (255),
    noOfFollowers INTEGER,
@@ -19,7 +19,7 @@ CREATE TABLE IF NOT EXISTS users (
 const createPostList = `
     CREATE TABLE IF NOT EXISTS posts (
         postid INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
-        accountname VARCHAR(255),
+        username VARCHAR(255),
         image VARCHAR(255),
         description TEXT,
         noOfLikes INTEGER,
@@ -28,13 +28,13 @@ const createPostList = `
 `
 
 const addUser = `
-INSERT INTO users (accountname, avatar, bio, noOfFollowers, noOfFollowees, isDemoUser) 
-VALUES ($1,$2,$3,$4,$5,$6)
+INSERT INTO users (login_name, password, username, avatar, bio, noOfFollowers, noOfFollowees, isDemoUser) 
+VALUES ($1,$2,$3,$4,$5,$6,$7,$8)
 `
 
 
 const addPost = `
-INSERT INTO posts (accountname, image, description, noOfLikes, postTime) 
+INSERT INTO posts (username, image, description, noOfLikes, postTime) 
 VALUES ($1,$2,$3,$4,$5)
 `
 
@@ -53,6 +53,8 @@ async function databaseInit(){
     console.log("user list and post list created")
     for (const user of demoUsers){
         await client.query(addUser,[
+            user.loginName,
+            user.password,
             user.userName,
             user.avatar,
             user.bio,
@@ -64,8 +66,9 @@ async function databaseInit(){
     console.log('demo users added')
 
     for (const post of demoPosts){
+        console.log(post)
         await client.query(addPost,[
-            post.postetBy,
+            post.postedBy,
             post.image,
             post.description,
             post.noOfLikes,
@@ -74,9 +77,17 @@ async function databaseInit(){
     }
 
     console.log('demo posts added')
+    // const { rows } = await client.query('SELECT * FROM users');
+    // console.log(rows)
+
+    const { rows } = await client.query('SELECT * FROM posts')
+    console.log(rows)
+
     await client.end();
 }
 
+
 databaseInit()
+
 
 module.exports = databaseInit

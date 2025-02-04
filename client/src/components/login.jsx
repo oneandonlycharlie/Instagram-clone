@@ -2,9 +2,10 @@ import { useEffect, useState } from "react"
 import InstagramLogo from "../assets/logoWhite.svg"
 import '../styles/login.css'
 
-function LogIn(){
+function LogIn({passLogin}){
 
 const [requireSignup, openSignup] = useState(false)
+const [signupSuccess, setSuccess] = useState(false)
 const [loginInfo, setLoginInfo] = useState({
     userName: '',
     password: ''
@@ -17,24 +18,34 @@ const [signupInfo, setSignupInfo] = useState({
     passwordError:''
 })
 
-const handleLogIn = ()=>{
-        console.log("loggin in..")
-
+const handleLogIn = (e)=>{
+        e.preventDefault()
+        console.log("logging in..")
+        console.log(loginInfo)
         const route = "/account/login"
 
         fetch(route,{
-        method: "POST",
-        body: JSON.stringify({
-            userName:loginInfo.userName,
-            password:loginInfo.password
-        }),
-        headers:{
-            "Content-Type":"application/json"
-        }
+            method: "POST",
+            body: JSON.stringify({
+                userName:loginInfo.userName,
+                password:loginInfo.password
+            }),
+            headers:{
+                "Content-Type":"application/json"
+            }
 
-    })
+        })
         .then((res)=> {
-            console.log(res.status)
+            console.log(res)
+            return res.json()
+        }).then((res)=>{
+            console.log(res.message)
+            console.log(res.data)
+            if (res.message == 'Log in successful'){
+                passLogin()
+            } else if (res.message == 'failed to log in, try again'){
+                // send error reminder
+            }
         })
 }
 
@@ -60,13 +71,14 @@ const handleSignup = ()=>{
             passwordError:"*Password cannot be empty"
         }))
         return
-    } else if (signupInfo.password.length < 5){
+    } else if (signupInfo.newPassword.length < 5){
         setSignupInfo(prevInfo => ({
             ...prevInfo,
             passwordError:"*Password must be longer than 5 letters"
         }))
         return
     }
+    console.log(signupInfo)
 
     // pass in data to server for verification
     const route = "/account/signup";
@@ -74,8 +86,8 @@ const handleSignup = ()=>{
     fetch(route,{
         method: "POST",
         body: JSON.stringify({
-            userName:loginInfo.userName,
-            password:loginInfo.password
+            userName: signupInfo.newUserName,
+            password:signupInfo.newPassword
         }),
         headers:{
             "Content-Type":"application/json"
@@ -83,7 +95,10 @@ const handleSignup = ()=>{
 
     })
         .then((res)=> {
-            console.log(res.status)
+            console.log(res.status);
+            if (res.status == "200"){
+                setSuccess(true)
+            }
         })
 }
 
@@ -91,7 +106,7 @@ const handleSignup = ()=>{
     return (
         <div className="login">
         <img src={InstagramLogo} alt="Instagram" className="logo"/>
-        <form className='buttonContainer'>
+        <div className='buttonContainer'>
             <input 
                 type="text" 
                 placeholder='Username'
@@ -114,7 +129,7 @@ const handleSignup = ()=>{
                 type="submit"
                 onClick={handleLogIn}>
             Log in</button>
-        </form>
+        </div>
         <p>Don't have an account? <a target="_blank" onClick={()=>openSignup(true)}>Sign up</a></p>
         <span>OR</span>
         <button >Continue as guest</button>
@@ -123,30 +138,35 @@ const handleSignup = ()=>{
             <>
                 <span className="pass"></span>
                 <div className="signup">
-                    <h3>Sign Up</h3>
-                    <input 
-                        type="text"
-                        placeholder="Username"
-                        value={signupInfo.newUserName}
-                        onChange={(e)=>setSignupInfo(prevInfo=>({
-                            ...prevInfo,
-                            newUserName:e.target.value
-                        }))}
-                    />
-                    <label className="errorLabel">{signupInfo.nameError}</label>
-                    <input 
-                        type="text"
-                        placeholder="Password"
-                        value={signupInfo.newPassword}
-                        onChange={(e)=>setSignupInfo(prevInfo=>({
-                            ...prevInfo,
-                            newPassword:e.target.value
-                        }))}
-                    />
-                    <label className="errorLabel">{signupInfo.passwordError}</label>
-                    <button type="submit"  
-                        onClick={handleSignup}>
-                    Sign up</button>
+                    {signupSuccess?
+                        <h3>Sign Up Successful! Please log in</h3>
+                        :
+                        <>
+                        <h3>Sign Up</h3>
+                        <input 
+                            type="text"
+                            placeholder="Username"
+                            value={signupInfo.newUserName}
+                            onChange={(e)=>setSignupInfo(prevInfo=>({
+                                ...prevInfo,
+                                newUserName:e.target.value
+                            }))}
+                        />
+                        <label className="errorLabel">{signupInfo.nameError}</label>
+                        <input 
+                            type="text"
+                            placeholder="Password"
+                            value={signupInfo.newPassword}
+                            onChange={(e)=>setSignupInfo(prevInfo=>({
+                                ...prevInfo,
+                                newPassword:e.target.value
+                            }))}
+                        />
+                        <label className="errorLabel">{signupInfo.passwordError}</label>
+                        <button type="submit"  
+                            onClick={handleSignup}>
+                        Sign up</button>
+                        </>}
                     <button onClick={()=>openSignup(false)}
                     >Close</button>
                 </div>

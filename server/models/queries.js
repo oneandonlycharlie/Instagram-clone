@@ -2,10 +2,14 @@ const pool = require("./pool")
 const bcrypt = require("bcryptjs")
 const { generateDefaultUser } = require("../utils/generateFakeUser")
 
-const getAllUsers ="SELECT * FROM users"
 
 async function getAllPosts(){
-    const { rows } = await pool.query("SELECT * FROM posts")
+    const { rows } = await pool.query("SELECT * FROM posts");
+    return rows
+}
+
+async function getDemoUsers(){
+    const { rows } = await pool.query('SELECT * FROM users WHERE isDemoUser = $1',[true]);
     return rows
 }
 
@@ -39,7 +43,7 @@ async function createUser(userName, password) {
 
 
 module.exports = {
-    getAllUsers,
     getAllPosts,
     createUser,
+    getDemoUsers
 }

@@ -21,11 +21,6 @@ router.post("/signup", (req,res)=>{
 
 // handle log in request and verification
 
-// router.get("/login", (req,res)=>{
-//     console.log("receving get request at /login")
-//     res.json({message: 'receving get request at /login'})
-// })
-
 router.post("/login", 
     // Redirect on failure   
     passport.authenticate("local", {failureRedirect: '/account/failure' }),
@@ -43,12 +38,21 @@ router.get("/failure", (req,res)=>{
     res.json({message: 'failed to log in, try again'})
 })
 
-router.get("/user", (req,res)=>{
+router.get("/user", async(req,res)=>{
     console.log('directing you to user page..')
     console.log(req.user)
     console.log(req.isAuthenticated())
     if (req.isAuthenticated()){
-        res.json({message:'you are finally loggedin!', data:req.user})
+        let data = {
+            user:req.user,
+            demoUsers:await db.getDemoUsers(),
+            posts:await db.getAllPosts()
+        };
+
+        res.json({
+            message:'Log in successful', 
+            data
+            })
     } else {
         res.json({message: 'failed to log in, try again'})
     }

@@ -12,16 +12,16 @@ const getUser = ()=> {
     console.log(username)
     if (!username){
         return userData.user
-    } else if (username == userData.user.userName){
+    } else if (username == userData.user.username){
         return userData.user
     } else if (username){
-        let displayUser = userData.followees.find(account=>account.userName == username)
+        let displayUser = userData.demoUsers.find(account=>account.username == username)
         isEditable = false;
         return displayUser
     }
 }
 const user= getUser()
-console.log(user)
+const posts = userData.posts.filter((post)=> post.username == user.username)
 
     return (
         <section className="profile">
@@ -29,7 +29,8 @@ console.log(user)
                 user={user}
                 editStatus={isEditable}
             />
-            <AllPosts posts={user.posts}/>
+            { posts? <AllPosts posts={posts}/> : <><p>You haven't posted any thing yet</p></>
+            }
         </section>
     )
 }
@@ -42,14 +43,14 @@ function Handle({user,editStatus}){
         <div className="handle">
             <img className='avatar' src={user.avatar} alt="headshot" />
             <div>   
-                <span className="name">{user.userName}</span>
+                <span className="name">{user.username}</span>
                 {editStatus &&
                     <button onClick={()=>setEditVisibility(true)}
                     >Edit profile</button>
                 }
             </div>
             <div className="info">
-                <span><span className="number">{user.posts.length}</span>posts</span>
+                <span><span className="number">{user.posts? user.posts.length:0}</span>posts</span>
                 <span><span className="number">{user.noOfFollowers}</span>followers</span>
                 <span><span className="number">{user.noOfFollowees}</span>following</span>
             </div>
@@ -79,8 +80,6 @@ function AllPosts({posts}){
 }
 
 function Post({post}){
-
-
     return (
         <div className="my-post">
             <img src={post.image} alt="my post" />
@@ -92,7 +91,7 @@ function Post({post}){
 
 function EditPopup({user, close}){
 
-    const [formData, setFormData] = useState({name:user.userName,bio:user.bio})
+    const [formData, setFormData] = useState({name:user.username,bio:user.bio})
 
     const handleChange = (e)=>{
         const {name, value} = e.target;
