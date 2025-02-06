@@ -19,5 +19,15 @@ postRouter.post("/comment",async(req,res)=>{
     res.redirect("/account/user")
 })
 
+postRouter.post("/share",async(req,res)=>{
+    console.log(req.body)
+    console.log(req.user.username)
+    const post = {
+        ...req.body.post,
+        postedBy:req.user.username
+    }
+    await db.addPost(post)
+    res.redirect("/account/user")
+})
 
 module.exports = postRouter

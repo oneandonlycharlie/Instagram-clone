@@ -62,11 +62,27 @@ async function addComment(postid,comment,username){
     await pool.query(command,[postid,comment,username])
 }
 
+async function addPost(post){
+    const addPost = `
+        INSERT INTO posts (username, image, description, noOfLikes, postTime) 
+        VALUES ($1,$2,$3,$4,$5)
+        `
+    await pool.query(addPost,[
+            post.postedBy,
+            post.image,
+            post.description,
+            post.noOfLikes,
+            post.postTime
+        ])
+        console.log("post logged")
+}
+
 module.exports = {
     getAllPosts,
     createUser,
     getDemoUsers,
     getAllComments,
     like,
-    addComment
+    addComment,
+    addPost
 }

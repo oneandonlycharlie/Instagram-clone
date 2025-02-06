@@ -1,26 +1,89 @@
 import "../styles/create.css"
+import { useState } from "react"
 
 function Create({closeWindow, user}){
 
-  console.log("pop up created!")
+const [postInfo, setPost] = useState({
+    postedBy:null,
+    image: null,
+    description:"",
+    noOfLikes:0,
+    postTime: null
+})
+
+const handleShare=()=>{
+    const date = new Date().toDateString()
+    setPost({
+        ...postInfo,
+        postTime:date
+    })
+    console.log(postInfo)
+
+    if (!postInfo.image){
+        return
+    }
+    fetch("/account/post/share",{
+        method:"POST",
+        body:JSON.stringify(
+            {post:postInfo}
+        ),
+        headers:{
+            "Content-Type":"application/json"
+        }
+    }).then((res)=>{
+        if (res.ok){
+            setPost({
+                postedBy:null,
+                image: null,
+                descriotion:"",
+                noOfLikes:0,
+                postTime: null
+            })
+            closeWindow()
+        }
+    })
+}
+
     return (
         <div className="create">
             <div className="card">
                 <h3>Create new post</h3>
-                <img src="https://fastly.picsum.photos/id/10/2500/1667.jpg?hmac=J04WWC_ebchx3WwzbM-Z4_KC_LeLBWr5LZMaAkWkF68" alt="Photo shows up here" />
-                <div> 
-                    <input type="text" placeholder="input image url"/>
-                    <button>Submit</button>
+                {postInfo.image? 
+                    <><img className='upload-photo'src={postInfo.image} alt="" height={300}/></> 
+                    : 
+                    <img className='upload-logo' src="../public/upload-regular-24.png" alt="Photo shows up here" height={48}/>}
+                <div>
+                    <input 
+                        className='url-link' 
+                        type="text" 
+                        placeholder="Paste image url here"
+                        value={postInfo.image}
+                        onChange={(e)=>{
+                            setPost({
+                                ...postInfo,
+                                image:e.target.value
+                            })
+                        }}
+                        />
                 </div>
-                <div className="input">
+                <div className="text">
                     <div>
-                        {/* <img src={user.avatar} alt="avatar" className="avatar" />
-                        <span>{user.userName}</span> */}
+                        <img src={user.avatar} alt="avatar" className="avatar" />
+                        <span>{user.username}:</span>
                     </div>
-                    <textarea name="" id="" placeholder="">
+                    <textarea name="" id="" placeholder="Desciption goes here" 
+                        value={postInfo.description}
+                        onChange={(e)=>{
+                            setPost({
+                                ...postInfo,
+                                description:e.target.value
+                            })
+                        }}>
                     </textarea>
                 </div>
-                <button className="share">Share</button>
+                <button className="share"
+                    onClick={handleShare}
+                >Share</button>
                 <button className="close"
                     onClick={closeWindow}
                 >Close</button>
