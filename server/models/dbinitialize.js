@@ -26,6 +26,14 @@ const createPostList = `
         postTime VARCHAR(255)
     )
 `
+const createCommentList =  `
+    CREATE TABLE IF NOT EXISTS comments (
+        commentid INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+        comment VARCHAR(255),
+        commentby VARCHAR(255),
+        matchid INTEGER
+    )
+`
 
 const addUser = `
 INSERT INTO users (login_name, password, username, avatar, bio, noOfFollowers, noOfFollowees, isDemoUser) 
@@ -49,8 +57,9 @@ async function databaseInit(){
 
     await client.connect();
     await client.query(createUserList);
-    await client.query(createPostList)
-    console.log("user list and post list created")
+    await client.query(createPostList);
+    await client.query(createCommentList);
+    console.log("user list, post list and comment list created")
     for (const user of demoUsers){
         await client.query(addUser,[
             user.loginName,
@@ -77,11 +86,6 @@ async function databaseInit(){
     }
 
     console.log('demo posts added')
-    // const { rows } = await client.query('SELECT * FROM users');
-    // console.log(rows)
-
-    const { rows } = await client.query('SELECT * FROM posts')
-    console.log(rows)
 
     await client.end();
 }

@@ -13,6 +13,10 @@ async function getDemoUsers(){
     return rows
 }
 
+async function getAllComments(){
+    const { rows } = await pool.query('SELECT * FROM comments')
+    return rows
+}
 
 // create user and store encoded password
 const addNewUser = `
@@ -41,9 +45,28 @@ async function createUser(userName, password) {
     // console.log(rows)
 }
 
+async function like(id){
+    const command = `
+        UPDATE posts
+        SET noOfLikes = noOfLikes + 1
+        WHERE postid = $1
+        `
+    await pool.query(command,[id])
+}
+
+async function addComment(postid,comment,username){
+    const command = `
+        INSERT INTO comments (matchid, comment, commentby)
+        VALUES ($1,$2,$3)
+    `
+    await pool.query(command,[postid,comment,username])
+}
 
 module.exports = {
     getAllPosts,
     createUser,
-    getDemoUsers
+    getDemoUsers,
+    getAllComments,
+    like,
+    addComment
 }

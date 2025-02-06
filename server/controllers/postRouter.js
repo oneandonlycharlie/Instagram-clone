@@ -11,7 +11,13 @@ postRouter.post("/like", async(req,res)=>{
     res.redirect("/account/user")
 })
 
-
+postRouter.post("/comment",async(req,res)=>{
+    console.log(req.body)
+    console.log(req.user.username)
+    await db.addComment(req.body.postid, req.body.comment, req.user.username)
+    console.log('Comment success')
+    res.redirect("/account/user")
+})
 
 
 module.exports = postRouter
