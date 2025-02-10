@@ -2,25 +2,31 @@
     background-color: white;
     opacity: 1;
     width: 514px;
-    height:456px;
+    height:550px;
     aspect-ratio: 1/1;
     position: fixed;
     top:10%;
     left:15%;
     display: flex;
     flex-direction: column;
-    color: black;
+    color:var(--font-color);
     border-radius: 10px;
 }
 
 .create {
     h3 {
-        border-bottom: 1px rgba(0,0,0,0.5) solid;
+        border-bottom: 1px var(--hover-color) solid;
         padding: 0px 0px 10px 0px;
         margin-bottom:0px;
     }
     img {
-        height: 300px;
+        align-self: center;
+    }
+    .upload-logo{
+        margin-top: 252px;
+    }
+    .upload-photo {
+        object-fit: cover;
     }
     button.share {
         position:absolute;
@@ -28,7 +34,7 @@
         right:3%;
         border:none;
         background-color: white;
-        color:rgb(10, 130, 205);
+        color:var(--button-color);
         font-weight: 600;
     }
     button.close {
@@ -37,12 +43,21 @@
         left:3%;
         border:none;
         background-color: white;
-        color:rgb(10, 130, 205);
+        color:var(--button-color);
         font-weight: 600;
     }
-    .input {
-        display: inherit;
+    .url-link{
+        width: 300px;
+        height:1.5rem;
+        margin:10px;
+        outline:none;
+    }
+    .text {
+        display: flex;
+        flex-direction: column;
         background-color:none;
+        align-items: flex-start;
+        margin-top: 30px;
         img {
             width:24px;
             height:24px;
@@ -52,7 +67,7 @@
         }
     }
     textarea {
-        flex-grow: 1;
+        align-self: stretch;
         height:4rem;
         border: none;
         background-color: inherit;

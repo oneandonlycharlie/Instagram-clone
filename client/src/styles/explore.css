@@ -7,8 +7,8 @@
 }
 
 .explore .image-container {
-    border: 1px solid lightblue;
-    width: 150px;
+    border: 1px solid var(--line-color);
+    width: 300px;
     position: relative;
     img {
         width: 100%;
@@ -19,7 +19,7 @@
 
 .image-container .content {
     position: absolute;
-    background-color: rgba(0,0,0,0.5);
+    background-color: var(--hover-color);
     top: 0;
     left: 0;
     right: 0;
@@ -37,11 +37,3 @@
 .image-container .content:hover {
     opacity: 1;
 }
-
-/* .img-container .content {
-    position: absolute;
-    top:50%;
-    left:50%;
-    transform: translate(-50%, -50%);
-    color: white;
-} */

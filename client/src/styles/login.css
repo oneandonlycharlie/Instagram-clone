@@ -4,7 +4,8 @@
 }
 
 .login {
-    border: 1px solid rgba(128, 128, 128, 0.482);
+    border: 1px solid var(--line-color);
+    border-radius: 5px;
     width: 350px;
     position: fixed;
     left:30%;
@@ -16,15 +17,15 @@
         display: block;
         width:258px;
         height:2rem;
-        background-color: black;
+        background-color: var(--dark-background-color);
         outline:none;
         margin:10px;
-        border:1px solid rgba(128, 128, 128, 0.482);
+        border:1px solid var(--line-color);
         font-weight: 600;
         border-radius: 3px;
     }
     button {
-        background-color: rgba(4, 136, 193, 0.886);
+        background-color: var(--button-color);
         border:none;
         width:260px;
         height:1.5rem;
@@ -38,19 +39,20 @@
     }
     a {
         cursor: pointer;
-        color:rgba(4, 136, 193, 0.886);
+        color:var(--button-color);
         font-weight: 800;
     }
 }
 
 .signup {
-    border: 1px solid rgba(128, 128, 128, 0.482);
+    border: 1px solid var(--line-color);
     margin: 30px;
     border-radius: 5px;
+    padding:10px
 }
 
 .login .pass {
-        border-bottom: 1px solid rgba(128, 128, 128, 0.367);
+        border-bottom: 1px solid var(--line-color);
         width:inherit;
         margin-top: 20px;
     } 

@@ -1,19 +1,26 @@
-#root {
+body {
+  margin: 0;
+  font-size: 12px;
+  height: 100vh;
   max-width: 1280px;
   margin: 0;
   text-align: center;
-  position: relative;
+  height:100vh;
+  background-color: var(--dark-background-color);
+  color:var(--font-color)
 }
 
 
 header {
-  border-right:1px solid #a8a8a838;
+  border-right:1px solid var(--line-color);
   display: flex;
   flex-direction: column;
-  position: fixed;
+  position:fixed;
   height: 100vh;
   width: 56px;
   gap:30px;
+  top:0;
+  left:0;
   align-items: center;
 }
 
@@ -30,7 +37,7 @@ main {
 .popup-window {
   position: absolute;
   width: inherit;
-  background-color:rgba(0,0,0,0.5);
+  background-color:var(--hover-color);
   left:-56px;
   top: 0px;
   height:100vh;
