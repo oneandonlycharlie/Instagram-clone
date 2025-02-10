@@ -1,14 +1,19 @@
 .explore {
-    margin-left: 10px;
-    display: grid;
-    grid-template-columns: repeat(3,1fr);
-    gap: 5px;
-    width: 450px;
+    --feed-width:90vw;
+    margin:30px;
+    display: flex;
+    gap:5px;
+    width: var(--feed-width);
+    max-width: 950px;
+    height: 150vh;
+    flex-wrap: wrap;
+    justify-content: center;
 }
 
 .explore .image-container {
     border: 1px solid var(--line-color);
-    width: 300px;
+    width: 30%;
+    aspect-ratio: 1/1;
     position: relative;
     img {
         width: 100%;

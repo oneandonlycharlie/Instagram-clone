@@ -2,12 +2,10 @@ body {
   margin: 0;
   font-size: 12px;
   height: 100vh;
-  max-width: 1280px;
   margin: 0;
   text-align: center;
-  height:100vh;
   background-color: var(--dark-background-color);
-  color:var(--font-color)
+  color:var(--font-color);
 }
 
 
@@ -17,18 +15,21 @@ header {
   flex-direction: column;
   position:fixed;
   height: 100vh;
-  width: 56px;
+  width: 78px;
   gap:30px;
   top:0;
   left:0;
   align-items: center;
 }
 
+header span{
+  display: none;
+}
+
 main {
   display: flex;
   flex-direction: column;
   margin-left: 72px;
-  width: 1181px;
   padding-top: 30px;
   position:relative;
   height:100vh;
@@ -36,9 +37,9 @@ main {
 
 .popup-window {
   position: absolute;
-  width: inherit;
+  width: 150%;
   background-color:var(--hover-color);
-  left:-56px;
-  top: 0px;
+  top: 0;
   height:100vh;
 }
+

@@ -7,22 +7,53 @@
 .create-button {
     background-color: var(--dark-background-color);
     border: none;
+    color: white;
+    font-size: 18px;
+    padding:0;
 }
 
 .create-button:hover {
     cursor: pointer;
 }
 
+.explore-button {
+    transform: translate(-2px, 3px)
+}
+
 .nav-logo {
-    padding-top: 20px;
-    margin-bottom: 30px;
+    padding-top: 50px;
+    margin-bottom: 50px;
+}
+
+header img.nav-full-logo {
+    padding-top:20px;
+    display:none;
+}
+
+header a .nav-avatar {
+    display: inline-flex;
+}
+
+header span {
+    padding-left: 15px;
 }
 
 .log-out {
-    background-color:var(--dark-background-color);
+    background-color: var(--dark-background-color);
+    color:var(--font-color);
     border: none;
+    padding:5px 8px;
     font-size: 1rem;
     position: fixed;
     top:92%;
     cursor: pointer;
+}
+
+.log-out:hover {
+    background-color: var(--line-color);
+    border-radius: 5px;
+}
+
+.mobile-header {
+    display: none;
 }

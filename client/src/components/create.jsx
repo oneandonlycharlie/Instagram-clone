@@ -51,7 +51,7 @@ const handleShare=()=>{
                 {postInfo.image? 
                     <><img className='upload-photo'src={postInfo.image} alt="" height={300}/></> 
                     : 
-                    <img className='upload-logo' src="../public/upload-regular-24.png" alt="Photo shows up here" height={48}/>}
+                    <img className='upload-logo' src="/upload-regular-24.png" alt="Upload photo" height={48}/>}
                 <div>
                     <input 
                         className='url-link' 
@@ -68,8 +68,10 @@ const handleShare=()=>{
                 </div>
                 <div className="text">
                     <div>
-                        <img src={user.avatar} alt="avatar" className="avatar" />
-                        <span>{user.username}:</span>
+                        <div>
+                            <img src={user.avatar} alt="avatar" className="avatar" />
+                            <span>{user.username}:</span>
+                        </div>
                     </div>
                     <textarea name="" id="" placeholder="Desciption goes here" 
                         value={postInfo.description}

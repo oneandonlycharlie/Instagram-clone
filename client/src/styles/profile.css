@@ -1,40 +1,43 @@
 .profile {
     display: flex;
     flex-direction: column;
-    width:600px;
+    max-width: 900px;
     align-items: flex-start;
-    padding-left: 20px;
+    margin-left: 80px;
+    min-width: 240px;
 }
 
 .profile .handle {
     display: grid;
+    align-items: center;
     grid-template-columns: 1fr 2fr;
-    grid-template-rows: repeat(4,1fr);
-    width: inherit;
+    grid-template-rows: repeat(3,1fr);
+    width: 100%;
     height:240px;
     gap:5px;
     position:relative;
     .avatar {
         aspect-ratio: 1/1;
+        margin:60px
     }
 }
 
 .my-posts {
-    display: grid;
-    grid-template-columns: repeat(3,1fr);
-    width:600px;
+    display: flex;
+    flex-wrap: wrap;
+    width:100%;
     gap: 5px;
     border-top:1px var(--line-color) solid;
     padding-top: 30px;
 }
 
 .my-post {
-    width:200px;
+    width:30%;
     position: relative;
     img {
-    width:inherit;
-    aspect-ratio: 1/1;
-    object-fit: cover;
+        width:100%;
+        aspect-ratio: 1/1;
+        object-fit: cover;
     }
 }
 
@@ -60,7 +63,7 @@
 }
 
 .profile .avatar {
-    grid-area: 1 / 1 / 5 / 2;
+    grid-area: 1 / 1 / 4 / 2;
     width: 150px;
     border-radius: 50%;
     padding:5px;
@@ -69,6 +72,8 @@
 
 .handle div {
     text-align: left;
+    padding:5px 20px;
+    margin:5px 10px
 }
 
 .handle .info {
@@ -77,7 +82,7 @@
     font-size: 14px;
     .number {
         font-weight: 800;
-        padding:2px;
+        padding:10px;
     }
 }
 
@@ -89,6 +94,7 @@
 .handle button{
     border-radius: 5px;
     border: none;
+    margin:5px;
     padding:5px 10px;
     font-size: 14px;
     font-weight: 600;

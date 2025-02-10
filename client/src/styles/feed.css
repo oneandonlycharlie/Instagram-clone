@@ -1,18 +1,22 @@
 .feedpage {
     display: flex;
-    align-items: flex-start;
+    justify-content: center;
+    max-width: 800px;
 }
 
 .feed {
     display: inherit;
     flex-direction: column;
-    align-items: center;
-    width:630px;
-    color:var(--font-color)
+    align-items:center;
+    flex-basis:100%;
+    color:var(--font-color);
+    max-width: 100%;
+    
 }
 
 .post {
-    width: 470px;
+    flex-basis: 470px;
+    max-width: 470px;
     display: flex;
     flex-direction: column;
     border-bottom:1px solid var(--line-color);
@@ -45,13 +49,15 @@
 
 .post .image {
     img {
-        width:466px;
-        min-height: 466px;
-        max-height: 585px;
+        width:100%;
+        min-width: 200px;
+        max-height: 466px;
+        aspect-ratio: 4/5;
         object-fit: cover;
         border:1px solid var(--line-color);
         border-radius: 3px;
     }
+    align-self: center;
 }
 
 .post .handle .name, .like {
