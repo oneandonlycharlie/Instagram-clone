@@ -18,8 +18,22 @@ const [signupInfo, setSignupInfo] = useState({
     passwordError:''
 })
 
-const handleLogIn = (e)=>{
-        e.preventDefault()
+// set up guest access to bypass sign up
+const [isGuest, setGuest] = useState(false)
+
+useEffect(()=>{
+    handleLogIn()
+},[isGuest])
+
+const guestLogin = ()=>{
+    setLoginInfo({
+        userName:"Charlie",
+        password:"123456"
+    });
+    setGuest(true)
+}
+
+const handleLogIn = ()=>{
         console.log("logging in..")
         console.log(loginInfo)
         const route = "/account/login"
@@ -133,7 +147,9 @@ const handleSignup = ()=>{
         </div>
         <p>Don't have an account? <a target="_blank" onClick={()=>openSignup(true)}>Sign up</a></p>
         <span>OR</span>
-        <button >Continue as guest</button>
+        <button type="submit"
+                onClick={guestLogin}
+         >Continue as guest</button>
 
         {requireSignup && 
             <>
