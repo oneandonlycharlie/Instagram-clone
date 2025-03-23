@@ -4,7 +4,7 @@ const db = require("../models/queries")
 
 
 
-postRouter.post("/like", async(req,res)=>{
+postRouter.put("/like", async(req,res)=>{
     console.log("adding one like for you..")
     console.log(req.body.postid)
     await db.like(req.body.postid)
