@@ -23,6 +23,7 @@
         border:1px solid var(--line-color);
         font-weight: 600;
         border-radius: 3px;
+        color:var(--font-color)
     }
     button {
         background-color: var(--button-color);
@@ -30,7 +31,7 @@
         width:260px;
         height:1.5rem;
         border-radius: 5px;
-        margin: 10px 0px 10px 0px;
+        margin: 10px 0px 15px 0px;
         padding:5px;
         cursor: pointer;
     }  
@@ -40,7 +41,7 @@
     a {
         cursor: pointer;
         color:var(--button-color);
-        font-weight: 800;
+        font-weight: 600;
     }
 }
 

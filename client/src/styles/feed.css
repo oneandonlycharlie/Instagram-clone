@@ -15,8 +15,7 @@
 }
 
 .post {
-    flex-basis: 470px;
-    max-width: 470px;
+    max-width: 400px;
     display: flex;
     flex-direction: column;
     border-bottom:1px solid var(--line-color);
@@ -50,7 +49,7 @@
 .post .image {
     img {
         width:100%;
-        min-width: 200px;
+        min-width: 240px;
         max-height: 466px;
         aspect-ratio: 4/5;
         object-fit: cover;
@@ -69,6 +68,12 @@
     fill:rgba(225, 2, 2, 0.72)
 }
 
+.post .comments {
+    text-align: left;
+    margin:5px;
+    font-size: 12px;
+}
+
 .buttons {
     text-align: left;
 }
@@ -83,7 +88,9 @@
         border: none;
         height:1.5rem;
         background-color: var(--dark-background-color);
+        color: var(--font-color);
         flex-grow: 1;
+        margin-top: 5px;
     }    
     input:focus {
         outline:none;
@@ -118,38 +125,3 @@ span {
 
 
 
-
-/* .recommend {
-    width: 240px;
-    text-align: left;
-    .title{
-        margin:0px;
-        padding: 5px 0px ;
-        color: #a8a8a8;
-        font-weight: 600;
-    }
-    .avatar {
-        width:35px;
-        aspect-ratio: 1/1;
-        border-radius: 50%;
-        align-self: center;
-    }
-    .user {
-        display: flex;
-    }
-    p {
-        flex-grow: 1;
-        padding:3px 10px;
-        font-weight: 500;
-    }
-    button {
-        border: none;
-        background-color: black;
-        color: rgb(7, 193, 255);
-        font-size: 10px;
-        font-weight: 600;
-    }
-    button:hover {
-        color: white
-    }
-} */
