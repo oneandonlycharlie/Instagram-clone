@@ -1,15 +1,13 @@
-/*  step 1: decide what data I need as user - DONE
-    step 2: write a generate random user function that returns full info of a user, only ONE - DONE
-    step 3: apply those data to the web page
-    step 4: write a function for random recommendations
-    step 5: connect front end to back end, write these fake data into data base */
 
 const { faker } = require('@faker-js/faker')
+
+// user seed to produce consistent data
+faker.seed(123);
 
 function generateRandomPost(userName){
 
     return {
-        id: faker.number.int(),
+        // id: faker.number.int(),
         image:faker.image.urlPicsumPhotos({height:faker.number.int({min:400,max:700}), blur:0}),
         description: faker.lorem.paragraph(),
         noOfLikes: faker.number.int({min:0,max:1000}),
@@ -18,32 +16,33 @@ function generateRandomPost(userName){
     }
 }
 
-function generateRandomUser(num=5){
-
-    const userName = faker.person.fullName()
-    const generatePosts = (userName,num)=>{
-        let posts = [];
+const generatePosts = (userName, num)=>{
+    if (num==1){
+        return generateRandomPost
+    }
+    let posts = [];
         for (let i=0; i < num; i++){
             posts.push(generateRandomPost(userName))
         }
         return posts
     }
 
+function generateRandomUser(){
+
     return {
-        userName,
-        id: faker.number.int(),
+        loginName:null,
+        password:null,
+        userName:faker.person.fullName(),
+        // id: faker.number.int(),
         avatar: faker.image.avatar(),
         bio:faker.person.bio(),
         noOfFollowers: faker.number.int({min:0, max:10000}),
         noOfFollowees:faker.number.int({min:0, max:10000}),
-        posts: generatePosts(userName,num),
+        isDemoUser: true,
     }
 }
 
 function generateUsers(num){
-    if (num == 1){
-        return generateRandomUser()
-    }
     let userList =[];
     for (let i=0; i<num; i++){
         userList.push(generateRandomUser())
@@ -51,4 +50,17 @@ function generateUsers(num){
     return userList
 }
 
-module.exports = { generateUsers };
+function generateDefaultUser(){
+
+    return {
+        userName: 'New User' + faker.number.int({min:0, max:10000}),
+        avatar: "https://fastly.picsum.photos/id/11/2500/1667.jpg?hmac=xxjFJtAPgshYkysU_aqx2sZir-kIOjNR9vx0te7GycQ",
+        bio:'You don\'t have a bio yet ',
+        noOfFollowers: 0,
+        noOfFollowees:0,
+        isDemoUser: false,
+    }
+}
+
+
+module.exports = { generateUsers, generatePosts, generateDefaultUser };
