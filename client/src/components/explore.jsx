@@ -8,7 +8,7 @@ function Explore(){
     return (
         <section className="explore">
             {posts.map((post)=> (
-                <Post key={post.id}
+                <Post key={post.postid}
                       post={post}
                 
                 />
@@ -24,7 +24,7 @@ function Post({post}){
         <div className="image-container">
             <img src={post.image} alt="explore post" />
             <div className="content">
-                <span>{post.noOfLikes} Likes xx comments</span>  
+                <span>{post.nooflikes} likes</span>  
             </div>
         </div>
     )

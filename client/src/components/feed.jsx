@@ -30,16 +30,6 @@ function Feed(){
                 />
                 ))}
             </section>
-            {/* <section className="recommend">
-                <p className="title">Suggested for you</p>
-                {recommendedUsers.map((account)=> (
-                    <div className="user" key={account.id}>
-                        <img src={account.avatar} alt="" className="avatar" />
-                        <p>{account.userName}</p>
-                        <button>Follow</button>
-                    </div>
-                ))}
-            </section> */}
         </div>
     )
 }

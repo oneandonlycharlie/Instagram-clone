@@ -8,8 +8,7 @@ import Create from './create'
 
 function Home() {
 //hooks to control login state and server data
-  const [loggedIn, setLogin]=useState(null);
-  const [serverMsg, setServerMsg] = useState(null);
+  const [loggedIn, setLogin]=useState(false);
 
 // userdata that will be passed on the child routes
   const [userData, setUserData] = useState({})
@@ -21,10 +20,10 @@ function Home() {
       fetch("/account/user")
       .then((res) => res.json())
       .then((res) => { 
-        console.log(res.message);
+        console.log(res.ok)
         setLogin(res.isAuthenticated)
         setUserData(res.data)});
-    }, 50000)
+    }, 10000)
 
     return ()=>{clearInterval(intervalId)}
   },[loggedIn]);
@@ -62,12 +61,10 @@ console.log(userData)
         </>
       : 
        <>
-        <section className='login'>
           <LogIn
             loggedIn={loggedIn} 
             setLogin={setLogin}
             setUserData={setUserData}/> 
-        </section>
         </>}
     </>
   )

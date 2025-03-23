@@ -13,7 +13,6 @@ const handleLogOut = ()=>{
 
     console.log("logged out")
 }
-
     return (
         <>
         <div className="mobile-header">
@@ -44,8 +43,6 @@ const handleLogOut = ()=>{
             </svg>
             <span></span>
         </Link>
-        {/* Search is a pop up */}
-        {/* <Link>Search</Link> */}
         <Link to="/explore">
             <svg className='explore-button' 
                 aria-label="Explore" 
@@ -59,8 +56,6 @@ const handleLogOut = ()=>{
             </svg>
             <span></span>
         </Link>
-        {/* Notification is a pop up too */}
-        {/* <Link>Notifications</Link> */}
         <button className='create-button'
                 onClick={openWindow}
         >
@@ -77,11 +72,10 @@ const handleLogOut = ()=>{
             </svg>
             <span></span>
         </button>
-        <Link to={"/profile/" + user.username}>                                      
+        <Link to={"/profile/"}>                                      
             <img className='nav-avatar'src={user.avatar} alt="" />
             <span></span>
         </Link>
-        {/* <Link to="/messages">Messages</Link> */}
         <button className='log-out'
             onClick={handleLogOut}
         >Log out</button>

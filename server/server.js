@@ -3,9 +3,6 @@ const express = require("express")
 const app = express();
 const authRouter = require("./controllers/authRouter.js")
 const passport = require("passport")
-const cors = require('cors');
-app.use(cors());
-
 
 //middleware to parse URLs
 app.use(express.urlencoded({ extended: false }));
@@ -41,20 +38,10 @@ app.use(session({
 app.use(passport.session());
 require("./config/passport.js")
 
-
-// direct requests to all routes
-app.get("/api", (req,res)=>{
-    res.json({message: "Server connected"})
-})
-
 // direct to profile router for edits
 
 app.use("/account", authRouter)
 
-// testing that api is valid
-app.get("/test", (req,res)=>{
-    res.send({message:"get request works"})
-})
 
 app.listen(PORT,()=>{
     console.log(`server listening at ${PORT}`);
