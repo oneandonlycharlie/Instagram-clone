@@ -50,11 +50,17 @@
     bottom: 0;
     opacity: 0;
     span {
-        text-align: center;
         position: inherit;
         top:40%;
         left:5%;
         right:5%;
+    }
+    img {
+        display: inline-block;
+        width:16px;
+        stroke: white;
+        margin-left: 5px;
+        transform: translateY(3px);
     }
 }
 
