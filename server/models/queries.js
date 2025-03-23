@@ -54,6 +54,25 @@ async function like(id){
     await pool.query(command,[id])
 }
 
+async function updateProfile(id, username, bio){
+    const { rows } = await pool.query('SELECT * FROM users WHERE userid = $1',[id])
+    console.log(rows[0].username)
+    const oldname = rows[0].username
+    const updateProfile = `
+        UPDATE users 
+        SET username = $2, bio = $3
+        WHERE userid = $1
+    `
+    const updatePost = `
+        UPDATE posts
+        SET username = $2
+        WHERE username = $1
+    `
+    await pool.query(updateProfile,[id, username, bio])
+    await pool.query(updatePost,[oldname,username])
+    console.log("profile updated")
+}
+
 async function addComment(postid,comment,username){
     const command = `
         INSERT INTO comments (matchid, comment, commentby)
@@ -84,5 +103,6 @@ module.exports = {
     getAllComments,
     like,
     addComment,
-    addPost
+    addPost,
+    updateProfile
 }
