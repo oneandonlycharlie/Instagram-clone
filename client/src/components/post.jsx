@@ -1,17 +1,27 @@
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import { Link } from "react-router-dom";
 
 function Post({post,accounts,setUserData, comments}){
     const account = accounts.find((account)=> account.username == post.username)
     const commentList = comments.filter((comment)=> comment.matchid == post.postid)
     const [commentInput, setComment] = useState("")
-    const [liked, setLike] = useState(false)
+    const [likeCount,setLikeCount] = useState({
+        isLiked:false,
+        likeCount:post.nooflikes
+    })
+
+    useEffect(()=>{
+        setLikeCount(prev => ({
+            ...prev,
+            likeCount: prev+1,
+        }));
+    }, [likeCount.isLiked])
 
     const handleLike = (e)=>{
         console.log("I am clicekd")
         // send data back to server
         fetch("/account/post/like",{
-            method: "POST",
+            method: "PUT",
             body:JSON.stringify({postid:post.postid}),
             headers:{
                 "Content-Type":"application/json"
@@ -19,14 +29,18 @@ function Post({post,accounts,setUserData, comments}){
         })
             .then((res)=>{
                 console.log(res.status)
+                if (res.ok){
+                    console.log('like completed!')
+                    setLikeCount(prev => ({
+                        ...prev,
+                        isLiked:true
+                    }));
+                }
                 return res.json()
             })
             .then((res)=>{
-                console.log('like completed!')
                 setUserData(res.data);
             })
-        console.log(e.target)
-        setLike(true)
     }
     
     const handleComment = ()=>{
@@ -57,7 +71,7 @@ function Post({post,accounts,setUserData, comments}){
             })
     }
 
-    
+    console.log(commentList)
     return (
        <div className="post">
             <div className="handle">
@@ -67,7 +81,6 @@ function Post({post,accounts,setUserData, comments}){
                 <span className="name">{account.username}</span>
                 <span className="time">·</span>
                 <span className="time">{post.posttime}</span>
-                <p>{post.postid}</p>
             </div>
             <div className="image">
                 <img src={post.image} alt="post image" />
@@ -75,7 +88,7 @@ function Post({post,accounts,setUserData, comments}){
             <div className="buttons">
                 <button 
                     onClick={handleLike}>
-                    <svg className={liked? 'liked':''}
+                    <svg className={likeCount.isLiked? 'liked':''}
                         aria-label="Like" 
                         fill="currentColor" 
                         height="20" 
@@ -95,10 +108,9 @@ function Post({post,accounts,setUserData, comments}){
                         viewBox="0 0 24 24" 
                         width="20">
                             <title>Comment</title>
-                            <path d="M20.656 17.008a9.993 9.993 0 1 0-3.59 3.615L22 22Z" fill="none" stroke="currentColor" stroke-linejoin="round" stroke-width="2"></path>
+                            <path d="M20.656 17.008a9.993 9.993 0 1 0-3.59 3.615L22 22Z" fill="none" stroke="currentColor" strokeLinejoin="round" strokeWidth="2"></path>
                     </svg>
                 </button>
-                {/* To do: add a pop up display for comments */}
             </div>
             <div className="info">
                 <p className="like">{post.nooflikes} likes</p>
@@ -108,10 +120,16 @@ function Post({post,accounts,setUserData, comments}){
                     <input 
                         type="text" 
                         name="" 
+                        placeholder="Leave a comment..."
                         value={commentInput}
                         onChange={(e)=> setComment(e.target.value)}
                     />
                     <button onClick={handleComment}>Post</button></p>
+            </div>
+            <div className="comments">
+                {commentList && commentList.map((item)=>(
+                    <p key={item.commentid}>- {item.comment}</p>
+                ))}
             </div>
        </div> 
     )
