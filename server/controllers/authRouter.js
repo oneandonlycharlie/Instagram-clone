@@ -3,6 +3,7 @@ const router = new Router()
 const db = require("../models/queries.js")
 const passport = require("passport")
 const profileRouter = require("./profileRouter.js")
+const postRouter = require("./postRouter.js")
 
 require("../config/passport.js");
 
@@ -40,15 +41,14 @@ router.get("/failure", (req,res)=>{
 
 router.get("/user", async(req,res)=>{
     console.log('directing you to user page..')
-    console.log(req.user)
-    console.log(req.isAuthenticated())
+    // console.log('current user is',req.user, 'authentication is', req.isAuthenticated())
     if (req.isAuthenticated()){
         let data = {
             user:req.user,
             demoUsers:await db.getDemoUsers(),
-            posts:await db.getAllPosts()
+            posts:await db.getAllPosts(),
+            comments: await db.getAllComments()
         };
-
         res.json({
             message:'Log in successful', 
             isAuthenticated:req.isAuthenticated(),
@@ -59,19 +59,38 @@ router.get("/user", async(req,res)=>{
     }
 })
 
-//TODO add log out route
+router.put("/user", async(req,res)=>{
+    console.log('directing you to user page..')
+    if (req.isAuthenticated()){
+        let data = {
+            user:req.user,
+            demoUsers:await db.getDemoUsers(),
+            posts:await db.getAllPosts(),
+            comments: await db.getAllComments()
+        };
+        res.json({
+            message:'User data updated', 
+            isAuthenticated:req.isAuthenticated(),
+            data
+            })
+    } else {
+        res.json({message: 'failed to log in, try again'})
+    }
+})
+
+//handle log out
 router.get("/logout", (req,res,next)=>{
     req.logout((err)=>{
         if (err){
             return next(err)
         }
-        // do something here. 
     })
     console.log("log out success", req.isAuthenticated())
     res.json(req.isAuthenticated())
 })
 
-// add authentification to all protected routes.
+// direct to post router to handle user actions
+router.use("/post",postRouter)
 
 
 // direct to profile router for edits
