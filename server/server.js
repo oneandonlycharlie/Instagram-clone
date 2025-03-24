@@ -10,7 +10,7 @@ app.use(express.json())
 
 // environment variables stored
 require("dotenv").config();
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT || 8080;
 
 // database connected 
 const pool = require("./models/pool.js")
