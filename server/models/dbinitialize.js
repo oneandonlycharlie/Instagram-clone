@@ -50,9 +50,9 @@ VALUES ($1,$2,$3,$4,$5)
 async function databaseInit(){
     console.log("seeding...");
     const client = new Client({
-        user: "quangu",
-        database: "instagram",
-        password: "2684226",
+        user: process.env.USER,
+        database: process.env.DATABASE_NAME,
+        password: process.env.DBPWD,
     })
 
     await client.connect();
