@@ -50,9 +50,9 @@ const handleLogIn = ()=>{
 
         })
         .then((res)=> {
-            console.log(res)
             return res.json()
         }).then((res)=>{
+            console.log(res.ok)
             console.log(res.message)
             console.log(res.data)
             if (res.message == 'Log in successful'){
