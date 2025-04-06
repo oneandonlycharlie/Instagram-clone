@@ -52,9 +52,7 @@ const handleLogIn = ()=>{
         .then((res)=> {
             return res.json()
         }).then((res)=>{
-            console.log(res.ok)
-            console.log(res.message)
-            console.log(res.data)
+            console.log(res)
             if (res.message == 'Log in successful'){
                 setLogin(res.isAuthenticated)
                 setUserData(res.data)

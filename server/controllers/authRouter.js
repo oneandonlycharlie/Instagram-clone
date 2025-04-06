@@ -26,8 +26,8 @@ router.post("/login",
     // Redirect on failure   
     passport.authenticate("local", {failureRedirect: '/account/failure' }),
     (req,res)=>{
-        // console.log(req.session)
-        // console.log(req.isAuthenticated())
+        console.log(req.session)
+        console.log(req.isAuthenticated())
         res.redirect("/account/user")
     }
 )
@@ -40,8 +40,8 @@ router.get("/failure", (req,res)=>{
 })
 
 router.get("/user", async(req,res)=>{
-    console.log('directing you to user page..')
-    // console.log('current user is',req.user, 'authentication is', req.isAuthenticated())
+    console.log('getting you data for user page..')
+    console.log('current user is',req.user, 'authentication is', req.isAuthenticated())
     if (req.isAuthenticated()){
         let data = {
             user:req.user,
@@ -59,8 +59,9 @@ router.get("/user", async(req,res)=>{
     }
 })
 
-router.put("/user", async(req,res)=>{
-    console.log('directing you to user page..')
+router.post("/user", async(req,res)=>{
+    console.log('recieving post reuqest, directing you to user page..')
+    console.log('current user is',req.user, 'authentication is', req.isAuthenticated())
     if (req.isAuthenticated()){
         let data = {
             user:req.user,
