@@ -3,6 +3,7 @@ const express = require("express")
 const app = express();
 const authRouter = require("./controllers/authRouter.js")
 const passport = require("passport")
+const cors = require('cors')
 
 //middleware to parse URLs
 app.use(express.urlencoded({ extended: false }));
@@ -36,11 +37,11 @@ app.use(session({
 
 // require the entire passport verification config
 app.use(passport.session());
-require("./config/passport.js")
+require("./config/passport.js");
 
 // direct to profile router for edits
-
-app.use("/account", authRouter)
+app.use(cors());
+app.use("/account", authRouter);
 
 
 app.listen(PORT,()=>{
