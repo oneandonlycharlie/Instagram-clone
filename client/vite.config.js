@@ -7,11 +7,11 @@ export default defineConfig({
   server: {
       proxy: {
         "/api": {
-          target:"http://localhost:3001/",
+          target:"instagram-clone-backend-production.up.railway.app",
           changeOrigin: true,
         },
         "/account": {
-          target:"http://localhost:3001",
+          target:"instagram-clone-backend-production.up.railway.app",
           changeOrigin: true,
         }
       },
