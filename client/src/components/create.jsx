@@ -22,14 +22,15 @@ const handleShare=()=>{
     if (!postInfo.image){
         return
     }
-    fetch("/account/post/share",{
+    fetch("http://instagram-clone-backend-production.up.railway.app/account/post/share",{
         method:"POST",
         body:JSON.stringify(
             {post:postInfo}
         ),
         headers:{
             "Content-Type":"application/json"
-        }
+        },
+        credentials: 'include'
     }).then((res)=>{
         if (res.ok){
             setPost({

@@ -111,14 +111,15 @@ function EditPopup({user, close}){
         console.log(formData);
         console.log("info submitted!");
 
-        const route = "/account/profile"
+        const route = "http://instagram-clone-backend-production.up.railway.app/account/profile"
 
         fetch(route,{
             method:"PUT",
             body: JSON.stringify(formData),
             headers:{
                 "Content-Type":'application/json'
-            }
+            },
+            credentials: 'include'
         }).then((res)=>{
             console.log(res.status)
             close();

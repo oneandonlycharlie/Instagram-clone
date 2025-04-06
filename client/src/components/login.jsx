@@ -36,7 +36,7 @@ const guestLogin = ()=>{
 const handleLogIn = ()=>{
         console.log("logging in..")
         console.log(loginInfo)
-        const route = "https://instagram-clone-backend-production.up.railway.app/account/login"
+        const route = "http://instagram-clone-backend-production.up.railway.app/account/login"
 
         fetch(route,{
             method: "POST",
@@ -46,7 +46,8 @@ const handleLogIn = ()=>{
             }),
             headers:{
                 "Content-Type":"application/json"
-            }
+            },
+            credentials: 'include'
 
         })
         .then((res)=> {
@@ -63,6 +64,7 @@ const handleLogIn = ()=>{
 }
 
 const handleSignup = ()=>{
+    console.log("signing up")
     // reset error values 
     setSignupInfo(prevInfo => ({
         ...prevInfo,
@@ -94,7 +96,7 @@ const handleSignup = ()=>{
     console.log(signupInfo)
 
     // pass in data to server for verification
-    const route = "https://instagram-clone-backend-production.up.railway.app/account/signup";
+    const route = "http://instagram-clone-backend-production.up.railway.app/account/signup";
 
     fetch(route,{
         method: "POST",
@@ -104,11 +106,12 @@ const handleSignup = ()=>{
         }),
         headers:{
             "Content-Type":"application/json"
-        }
+        },
+        credentials: 'include'
 
     })
         .then((res)=> {
-            console.log(res.status);
+            console.log(res);
             if (res.status == "200"){
                 setSuccess(true)
             }
