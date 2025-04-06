@@ -7,11 +7,11 @@ export default defineConfig({
   server: {
       proxy: {
         "/api": {
-          target:"instagram-clone-backend-production.up.railway.app",
+          target:"https://instagram-clone-backend-production.up.railway.app",
           changeOrigin: true,
         },
         "/account": {
-          target:"instagram-clone-backend-production.up.railway.app",
+          target:"https://instagram-clone-backend-production.up.railway.app",
           changeOrigin: true,
         }
       },
