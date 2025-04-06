@@ -1,6 +1,7 @@
 # Instagram-clone
 
-## Overview
+## 🚀 [Demo](https://instagram-clone-production-b574.up.railway.app/)
+
 A full stack project as a repliacte of the Instagram Webapp that supports:
 
 📌 User sign-up and log-in/log-out
@@ -10,6 +11,10 @@ A full stack project as a repliacte of the Instagram Webapp that supports:
 📌 User interactions including profile edit, new post upload, like and comment
 
 📌 Responsive design that accommodates PC and Mobile
+
+➡️ Test account:
+- Username: Charlie
+- Password: 123456
 
 ## Tech Stack
 
@@ -32,9 +37,9 @@ A full stack project as a repliacte of the Instagram Webapp that supports:
 
 ✅ PostgreSQL
 
-✅ Passpost.js for Authentication
+✅ Passpost.js for session-based authentication
 
-✅ Faker - supply of mock data
+✅ [Faker](https://fakerjs.dev/) - supply of mock data
 
-
-🚧 Deployment on Raiway is underway 
+**DevOps**
+🚧 Deployment on [Raiway](https://railway.com/) 
