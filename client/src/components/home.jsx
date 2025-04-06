@@ -17,7 +17,7 @@ function Home() {
   useEffect(() => {
     //refresh data every 5 seconds
     const intervalId = setInterval(() => {
-      fetch("http://instagram-clone-backend-production.up.railway.app/account/user", {
+      fetch("https://instagram-clone-backend-production.up.railway.app/account/user", {
         method:"GET",
         credentials: 'include'
       })

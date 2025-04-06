@@ -20,7 +20,7 @@ function Post({post,accounts,setUserData, comments}){
     const handleLike = (e)=>{
         console.log("I am clicekd")
         // send data back to server
-        fetch("http://instagram-clone-backend-production.up.railway.app/account/post/like",{
+        fetch("https://instagram-clone-backend-production.up.railway.app/account/post/like",{
             method: "PUT",
             body:JSON.stringify({postid:post.postid}),
             headers:{
@@ -50,7 +50,7 @@ function Post({post,accounts,setUserData, comments}){
         }
         console.log('I made a comment!')
     
-        fetch("http://instagram-clone-backend-production.up.railway.app/account/post/comment",{
+        fetch("https://instagram-clone-backend-production.up.railway.app/account/post/comment",{
             method:"POST",
             body: JSON.stringify({
                 postid:post.postid,

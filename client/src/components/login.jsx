@@ -36,7 +36,7 @@ const guestLogin = ()=>{
 const handleLogIn = ()=>{
         console.log("logging in..")
         console.log(loginInfo)
-        const route = "http://instagram-clone-backend-production.up.railway.app/account/login"
+        const route = "https://instagram-clone-backend-production.up.railway.app/account/login"
 
         fetch(route,{
             method: "POST",
@@ -96,7 +96,7 @@ const handleSignup = ()=>{
     console.log(signupInfo)
 
     // pass in data to server for verification
-    const route = "http://instagram-clone-backend-production.up.railway.app/account/signup";
+    const route = "https://instagram-clone-backend-production.up.railway.app/account/signup";
 
     fetch(route,{
         method: "POST",

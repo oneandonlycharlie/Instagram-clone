@@ -41,7 +41,7 @@ require("./config/passport.js");
 
 // direct to profile router for edits
 app.use(cors({
-    origin:"http://instagram-clone-production-b574.up.railway.app",
+    origin:"https://instagram-clone-production-b574.up.railway.app",
     credentials: true
 }));
 app.use("/account", authRouter);

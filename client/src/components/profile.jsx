@@ -111,7 +111,7 @@ function EditPopup({user, close}){
         console.log(formData);
         console.log("info submitted!");
 
-        const route = "http://instagram-clone-backend-production.up.railway.app/account/profile"
+        const route = "https://instagram-clone-backend-production.up.railway.app/account/profile"
 
         fetch(route,{
             method:"PUT",

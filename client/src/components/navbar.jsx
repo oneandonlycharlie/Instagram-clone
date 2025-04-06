@@ -5,7 +5,7 @@ import InstagramLogo from "../assets/logoWhite.svg"
 function Nav({openWindow,user,setLogin}){
 
 const handleLogOut = ()=>{
-    fetch("http://instagram-clone-backend-production.up.railway.app/account/logout",{
+    fetch("https://instagram-clone-backend-production.up.railway.app/account/logout",{
         method:"GET",
         credentials: 'include'
     })
